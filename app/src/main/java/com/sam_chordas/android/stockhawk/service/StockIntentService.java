@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import com.google.android.gms.gcm.TaskParams;
 
-/**
- * Created by sam_chordas on 10/1/15.
- */
+
 public class StockIntentService extends IntentService {
 
   public StockIntentService(){

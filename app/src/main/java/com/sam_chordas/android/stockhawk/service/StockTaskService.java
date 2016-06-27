@@ -20,11 +20,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-/**
- * Created by sam_chordas on 9/30/15.
- * The GCMTask service is primarily for periodic tasks. However, OnRunTask can be called directly
- * and is used for the initialization and adding task as well.
- */
+
 public class StockTaskService extends GcmTaskService{
   private String LOG_TAG = StockTaskService.class.getSimpleName();
 

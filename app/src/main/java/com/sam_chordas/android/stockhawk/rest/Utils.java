@@ -97,7 +97,7 @@ public class Utils {
     static public boolean isStocknonExistent(Context c) {
         SearchManager sm =
                 (SearchManager)c.getSystemService(Context.SEARCH_SERVICE);
-        SearchableInfo nonExistentstock  = sm.getSearchableInfo();
+        SearchableInfo nonExistentstock  = sm.getSearchableInfo(null);
         return nonExistentstock != null &&
                 nonExistentstock.shouldIncludeInGlobalSearch();
 

@@ -185,7 +185,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
       return true;
     }
 
-    if (id == R.id.action_change_units){
+    if (id == R.id.action_change_units) {
       // this is for changing stock changes from percent value to dollar value
       Utils.showPercent = !Utils.showPercent;
       this.getContentResolver().notifyChange(QuoteProvider.Quotes.CONTENT_URI, null);
@@ -193,6 +193,15 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
 
     return super.onOptionsItemSelected(item);
   }
+
+ private void updateNonExistentStock() {
+ //  if (SEARCH_SERVICE.isEmpty() == 0) {
+
+   }
+
+
+
+
 
   @Override
   public Loader<Cursor> onCreateLoader(int id, Bundle args){

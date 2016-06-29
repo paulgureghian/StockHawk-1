@@ -8,6 +8,8 @@ import android.util.Log;
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 import java.util.ArrayList;
+import java.util.Locale;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,9 +52,21 @@ public class Utils {
     }
 
     public static String truncateBidPrice(String bidPrice) {
-        bidPrice = String.format("%.2f", Float.parseFloat(bidPrice));
+        bidPrice = String.format(String.valueOf(Locale.US));
+        // return bidPrice;
+
+
+        try {
+            float i = Float.valueOf(bidPrice);
+        } catch (NumberFormatException ex) {
+            System.err.println("Stock Symbol is non-existent");
+
+
+        }
         return bidPrice;
     }
+
+
 
     public static String truncateChange(String change, boolean isPercentChange) {
         String weight = change.substring(0, 1);

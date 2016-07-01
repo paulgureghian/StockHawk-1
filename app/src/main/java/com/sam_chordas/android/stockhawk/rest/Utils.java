@@ -5,15 +5,16 @@ import android.app.SearchableInfo;
 import android.content.ContentProviderOperation;
 import android.content.Context;
 import android.util.Log;
+
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 
 public class Utils {
 
@@ -50,24 +51,10 @@ public class Utils {
         }
         return batchOperations;
     }
-
     public static String truncateBidPrice(String bidPrice) {
-        bidPrice = String.format(String.valueOf(Locale.US));
-        // return bidPrice;
-
-
-        try {
-            float i = Float.valueOf(bidPrice);
-        } catch (NumberFormatException ex) {
-            System.err.println("Stock Symbol is non-existent");
-
-
-        }
+        bidPrice = String.format("%.2f", Float.parseFloat(bidPrice));
         return bidPrice;
     }
-
-
-
     public static String truncateChange(String change, boolean isPercentChange) {
         String weight = change.substring(0, 1);
         String ampersand = "";
@@ -84,7 +71,6 @@ public class Utils {
         change = changeBuffer.toString();
         return change;
     }
-
     public static ContentProviderOperation buildBatchOperation(JSONObject jsonObject) {
         ContentProviderOperation.Builder builder = ContentProviderOperation.newInsert(
                 QuoteProvider.Quotes.CONTENT_URI);
@@ -101,22 +87,12 @@ public class Utils {
             } else {
                 builder.withValue(QuoteColumns.ISUP, 1);
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return builder.build();
     }
-
-    static public boolean isStocknonExistent(Context c) {
-        SearchManager sm =
-                (SearchManager)c.getSystemService(Context.SEARCH_SERVICE);
-        SearchableInfo nonExistentstock  = sm.getSearchableInfo(null);
-        return nonExistentstock != null &&
-                nonExistentstock.shouldIncludeInGlobalSearch();
-
-    }
-
 }
+
 
 

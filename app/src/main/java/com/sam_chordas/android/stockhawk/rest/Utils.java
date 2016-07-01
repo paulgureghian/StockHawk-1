@@ -1,16 +1,17 @@
 package com.sam_chordas.android.stockhawk.rest;
 
-import android.app.SearchManager;
-import android.app.SearchableInfo;
+import android.app.AlertDialog;
 import android.content.ContentProviderOperation;
-import android.content.Context;
+
 import android.util.Log;
+import android.view.Display;
+import android.widget.Toast;
 
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 
 import java.util.ArrayList;
-import java.util.Locale;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,10 +20,10 @@ import org.json.JSONObject;
 public class Utils {
 
     private static String LOG_TAG = Utils.class.getSimpleName();
-
     public static boolean showPercent = true;
 
     public static ArrayList quoteJsonToContentVals(String JSON) {
+
         ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>();
         JSONObject jsonObject = null;
         JSONArray resultsArray = null;
@@ -42,19 +43,36 @@ public class Utils {
                         for (int i = 0; i < resultsArray.length(); i++) {
                             jsonObject = resultsArray.getJSONObject(i);
                             batchOperations.add(buildBatchOperation(jsonObject));
+
+
                         }
+
+
                     }
                 }
             }
         } catch (JSONException e) {
             Log.e(LOG_TAG, "String to JSON failed: " + e);
+
+        } catch (NumberFormatException nfe) {
+            Log.e(LOG_TAG, "Invalid stock symbol", nfe);
+            nfe.printStackTrace();
+
         }
         return batchOperations;
     }
+
+
+
+
+
+
+
     public static String truncateBidPrice(String bidPrice) {
         bidPrice = String.format("%.2f", Float.parseFloat(bidPrice));
         return bidPrice;
     }
+
     public static String truncateChange(String change, boolean isPercentChange) {
         String weight = change.substring(0, 1);
         String ampersand = "";
@@ -71,6 +89,7 @@ public class Utils {
         change = changeBuffer.toString();
         return change;
     }
+
     public static ContentProviderOperation buildBatchOperation(JSONObject jsonObject) {
         ContentProviderOperation.Builder builder = ContentProviderOperation.newInsert(
                 QuoteProvider.Quotes.CONTENT_URI);

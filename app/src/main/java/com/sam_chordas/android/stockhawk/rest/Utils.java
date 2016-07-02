@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
+import com.sam_chordas.android.stockhawk.service.StockTaskService;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import static android.widget.Toast.LENGTH_LONG;
 
 public class Utils {
 
@@ -55,7 +58,7 @@ public class Utils {
             Log.e(LOG_TAG, "String to JSON failed: " + e);
 
         } catch (NumberFormatException nfe) {
-            Log.e(LOG_TAG, "Invalid stock symbol", nfe);
+            Log.e(LOG_TAG, "Invalid stock symbol" + nfe.toString());
             nfe.printStackTrace();
 
         }

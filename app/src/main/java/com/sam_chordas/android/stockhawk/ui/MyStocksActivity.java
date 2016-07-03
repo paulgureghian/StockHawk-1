@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
@@ -35,6 +36,8 @@ import com.google.android.gms.gcm.PeriodicTask;
 import com.google.android.gms.gcm.Task;
 import com.melnykov.fab.FloatingActionButton;
 import com.sam_chordas.android.stockhawk.touch_helper.SimpleItemTouchHelperCallback;
+
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -145,25 +148,22 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                     .build();
 
             GcmNetworkManager.getInstance(this).schedule(periodicTask);
-
-
-
-                }
-
-
+        }
     }
-
-
-    @Subscribe (threadMode = ThreadMode.MAIN)
-    public void onInvalidStockSymbol (MessageEvent event) {
-        Toast.makeText(getApplicationContext(),  "Invalid Stock Symbol", Toast.LENGTH_LONG).show();
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onInvalidStockSymbol(MessageEvent event) {
+        Toast.makeText(getApplicationContext(), "Invalid Stock Symbol", Toast.LENGTH_LONG).show();
     }
-
-
-
-
-
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
     @Override
     public void onResume() {
         super.onResume();
@@ -222,3 +222,27 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         mCursorAdapter.swapCursor(null);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

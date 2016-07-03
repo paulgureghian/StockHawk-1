@@ -1,10 +1,10 @@
 package com.sam_chordas.android.stockhawk.rest;
 
-
 import android.content.ContentProviderOperation;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
+
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 import com.sam_chordas.android.stockhawk.service.StockTaskService;
@@ -19,12 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public  class  Utils   {
-
-
-
-
-
+public class Utils {
 
     private static String LOG_TAG = Utils.class.getSimpleName();
     public static boolean showPercent = true;
@@ -61,23 +56,13 @@ public  class  Utils   {
             Log.e(LOG_TAG, "Invalid stock symbol" + nfe.toString());
             nfe.printStackTrace();
             EventBus.getDefault().post(new MessageEvent("hi"));
-
-
         }
         return batchOperations;
     }
-
-
-
-
-
-
-
     public static String truncateBidPrice(String bidPrice) {
         bidPrice = String.format("%.2f", Float.parseFloat(bidPrice));
         return bidPrice;
     }
-
     public static String truncateChange(String change, boolean isPercentChange) {
         String weight = change.substring(0, 1);
         String ampersand = "";
@@ -94,7 +79,6 @@ public  class  Utils   {
         change = changeBuffer.toString();
         return change;
     }
-
     public static ContentProviderOperation buildBatchOperation(JSONObject jsonObject) {
         ContentProviderOperation.Builder builder = ContentProviderOperation.newInsert(
                 QuoteProvider.Quotes.CONTENT_URI);

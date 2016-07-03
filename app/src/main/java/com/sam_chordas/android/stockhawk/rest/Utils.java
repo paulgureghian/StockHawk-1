@@ -1,26 +1,30 @@
 package com.sam_chordas.android.stockhawk.rest;
 
-import android.app.AlertDialog;
+
 import android.content.ContentProviderOperation;
-
+import android.content.Context;
 import android.util.Log;
-import android.view.Display;
 import android.widget.Toast;
-
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 import com.sam_chordas.android.stockhawk.service.StockTaskService;
+import com.sam_chordas.android.stockhawk.ui.MyStocksActivity;
 
 import java.util.ArrayList;
 
-
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static android.widget.Toast.LENGTH_LONG;
+public  class  Utils   {
 
-public class Utils {
+
+
+
+
 
     private static String LOG_TAG = Utils.class.getSimpleName();
     public static boolean showPercent = true;
@@ -46,11 +50,7 @@ public class Utils {
                         for (int i = 0; i < resultsArray.length(); i++) {
                             jsonObject = resultsArray.getJSONObject(i);
                             batchOperations.add(buildBatchOperation(jsonObject));
-
-
                         }
-
-
                     }
                 }
             }
@@ -60,6 +60,8 @@ public class Utils {
         } catch (NumberFormatException nfe) {
             Log.e(LOG_TAG, "Invalid stock symbol" + nfe.toString());
             nfe.printStackTrace();
+            EventBus.getDefault().post(new MessageEvent("hi"));
+
 
         }
         return batchOperations;

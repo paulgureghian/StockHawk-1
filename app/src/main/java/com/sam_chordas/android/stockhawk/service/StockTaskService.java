@@ -24,12 +24,10 @@ import java.net.URLEncoder;
 
 public class StockTaskService extends GcmTaskService {
     private String LOG_TAG = StockTaskService.class.getSimpleName();
-
     private OkHttpClient client = new OkHttpClient();
     private Context mContext;
     private StringBuilder mStoredSymbols = new StringBuilder();
     private boolean isUpdate;
-
     public StockTaskService() {
     }
     public StockTaskService(Context context) {

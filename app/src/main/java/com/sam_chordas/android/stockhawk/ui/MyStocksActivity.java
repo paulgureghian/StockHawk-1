@@ -19,13 +19,12 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
-
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
+import com.sam_chordas.android.stockhawk.rest.MessageEvent;
 import com.sam_chordas.android.stockhawk.rest.QuoteCursorAdapter;
 import com.sam_chordas.android.stockhawk.rest.RecyclerViewItemClickListener;
 import com.sam_chordas.android.stockhawk.rest.Utils;
@@ -36,6 +35,8 @@ import com.google.android.gms.gcm.PeriodicTask;
 import com.google.android.gms.gcm.Task;
 import com.melnykov.fab.FloatingActionButton;
 import com.sam_chordas.android.stockhawk.touch_helper.SimpleItemTouchHelperCallback;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class MyStocksActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -50,6 +51,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         mContext = this;
         ConnectivityManager cm =
@@ -143,8 +145,25 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                     .build();
 
             GcmNetworkManager.getInstance(this).schedule(periodicTask);
-        }
+
+
+
+                }
+
+
     }
+
+
+    @Subscribe (threadMode = ThreadMode.MAIN)
+    public void onInvalidStockSymbol (MessageEvent event) {
+        Toast.makeText(getApplicationContext(),  "Invalid Stock Symbol", Toast.LENGTH_LONG).show();
+    }
+
+
+
+
+
+
     @Override
     public void onResume() {
         super.onResume();

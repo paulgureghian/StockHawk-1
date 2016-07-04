@@ -53,7 +53,14 @@
                 android:resource="@xml/stock_price_widget_info" />
         </receiver>
 
-        <activity android:name=".ui.StockGraphLine"></activity>
-    </application>
+        <activity android:name=".ui.StockGraphLine"
+                  android:label="@string/title_activity_setting">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.sam_chordas.android.stockhawk.ui.MyStocksActivity"/>
+
+        </activity>
+
+   </application>
 
 </manifest>

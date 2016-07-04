@@ -16,9 +16,8 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:supportsRtl="true">
-
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
         <activity
             android:name=".ui.MyStocksActivity"
             android:label="@string/app_name">
@@ -53,6 +52,8 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/stock_price_widget_info" />
         </receiver>
+
+        <activity android:name=".ui.StockGraphLine"></activity>
     </application>
 
 </manifest>

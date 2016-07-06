@@ -59,7 +59,7 @@ public class StockGraphLine extends AppCompatActivity implements Callback<YahooU
         volume = (TextView) findViewById(R.id.volume);
         adj_close = (TextView) findViewById(R.id.adj_close);
 
-
+       //hi
 
 
     }

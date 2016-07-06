@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Stock implements Parcelable {
 
-    private String quote;
+
     private String Symbol;
     private String Date;
     private String Open;
@@ -19,7 +19,7 @@ public class Stock implements Parcelable {
     public Stock() {
     }
     protected Stock(Parcel in) {
-        quote = in.readString();
+
         Symbol = in.readString();
         Date = in.readString();
         Open = in.readString();
@@ -39,12 +39,8 @@ public class Stock implements Parcelable {
             return new Stock[size];
         }
     };
-    public String getquote() {
-        return quote;
-    }
-    public void setQuote(String quote) {
-        this.quote = quote;
-    }
+
+
     public String getSymbol() {
         return Symbol;
     }
@@ -100,7 +96,7 @@ public class Stock implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
 
-        parcel.writeString(quote);
+
         parcel.writeString(Symbol);
         parcel.writeString(Date);
         parcel.writeString(Open);

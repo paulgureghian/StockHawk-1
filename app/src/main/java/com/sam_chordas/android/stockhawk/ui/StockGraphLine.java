@@ -58,6 +58,8 @@ public class StockGraphLine extends AppCompatActivity implements Callback<Stock>
         StockDataEndpoint stockDataEndpoint = retrofit.create(StockDataEndpoint.class);
         String query = "q=select * from yahoo.finance.historicaldata where symbol='GOOG' and startDate = '2016-01-09' and endDate = '2016-06-09'";
         Call<Stock> call = stockDataEndpoint.getData(query);
+        call.enqueue(this);
+
         }
     @Override
     public void onResponse(Call<Stock> call, Response<Stock> response) {

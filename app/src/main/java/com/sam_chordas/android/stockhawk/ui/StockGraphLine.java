@@ -2,6 +2,7 @@ package com.sam_chordas.android.stockhawk.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 import retrofit2.Response;
@@ -56,13 +57,16 @@ public class StockGraphLine extends AppCompatActivity implements Callback<Stock>
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         StockDataEndpoint stockDataEndpoint = retrofit.create(StockDataEndpoint.class);
-        String query = "q=select * from yahoo.finance.historicaldata where symbol='GOOG' and startDate = '2016-01-09' and endDate = '2016-06-09'";
+        String query = "select * from yahoo.finance.historicaldata where symbol='GOOG' and startDate = '2016-06-09' and endDate = '2016-06-19'";
         Call<Stock> call = stockDataEndpoint.getData(query);
         call.enqueue(this);
 
         }
     @Override
     public void onResponse(Call<Stock> call, Response<Stock> response) {
+
+        Log.d("res", response.raw().toString());
+
         int code = response.code();
         if (code == 200) {
             Stock user = response.body();

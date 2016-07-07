@@ -2,44 +2,29 @@ package com.sam_chordas.android.stockhawk.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import java.util.List;
 
-public class Stock implements Parcelable {
+public class Stock {
 
-
-    private String Symbol;
-    private String Date;
-    private String Open;
-    private String High;
-    private String Low;
-    private String Close;
-    private String Volume;
-    private String Adj_Close;
-
-    public Stock() {
+    public List<StockItem> getItems() {
+        return items;
     }
-    protected Stock(Parcel in) {
-
-        Symbol = in.readString();
-        Date = in.readString();
-        Open = in.readString();
-        High = in.readString();
-        Low = in.readString();
-        Close = in.readString();
-        Volume = in.readString();
-        Adj_Close = in.readString();
+    public void setItems(List<StockItem> items) {
+        this.items = items;
     }
-    public static final Creator<Stock> CREATOR = new Creator<Stock>() {
-        @Override
-        public Stock createFromParcel(Parcel in) {
-            return new Stock(in);
-        }
-        @Override
-        public Stock[] newArray(int size) {
-            return new Stock[size];
-        }
-    };
+    private List<StockItem> items;
 
+    public static class StockItem {}
+
+     String Symbol;
+     String Date;
+     String Open;
+     String High;
+     String Low;
+     String Close;
+     String Volume;
+     String Adj_Close;
 
     public String getSymbol() {
         return Symbol;
@@ -89,28 +74,6 @@ public class Stock implements Parcelable {
     public void setAdj_Close(String adj_close) {
         this.Adj_Close = Adj_Close;
     }
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-
-
-        parcel.writeString(Symbol);
-        parcel.writeString(Date);
-        parcel.writeString(Open);
-        parcel.writeString(High);
-        parcel.writeString(Low);
-        parcel.writeString(Close);
-        parcel.writeString(Volume);
-        parcel.writeString(Adj_Close);
-    }
-    public static class StockResult {
-        private List<Stock> results;
-
-        public List<Stock> getResults() {
-            return results;
-        }
-    }
 }
+
+

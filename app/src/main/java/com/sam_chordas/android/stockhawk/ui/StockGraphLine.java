@@ -1,21 +1,14 @@
 package com.sam_chordas.android.stockhawk.ui;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import retrofit2.Response;
-import retrofit2.Converter.Factory;
 import retrofit2.Callback;
 import retrofit2.Call;
-import retrofit2.CallAdapter;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.LineData;
 import com.google.gson.Gson;
@@ -23,11 +16,8 @@ import com.google.gson.GsonBuilder;
 import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.data.Stock;
 import com.sam_chordas.android.stockhawk.service.StockDataEndpoint;
-import com.sam_chordas.android.stockhawk.service.YahooUser;
 
-import java.lang.reflect.Type;
-
-public class StockGraphLine extends AppCompatActivity implements Callback<YahooUser> {
+public class StockGraphLine extends AppCompatActivity implements Callback<Stock> {
 
     public static final String EXTRA_STOCK = "stock";
     Stock mStock;
@@ -54,17 +44,11 @@ public class StockGraphLine extends AppCompatActivity implements Callback<YahooU
         date = (TextView) findViewById(R.id.date);
         open = (TextView) findViewById(R.id.open);
         high = (TextView) findViewById(R.id.high);
-        low = (TextView)findViewById(R.id.low);
-        close = (TextView)findViewById(R.id.close);
+        low = (TextView) findViewById(R.id.low);
+        close = (TextView) findViewById(R.id.close);
         volume = (TextView) findViewById(R.id.volume);
         adj_close = (TextView) findViewById(R.id.adj_close);
 
-       //hi
-
-
-    }
-
-    public void onClick(View view) {
         Gson gson = new GsonBuilder()
                 .create();
         Retrofit retrofit = new Retrofit.Builder()
@@ -72,27 +56,27 @@ public class StockGraphLine extends AppCompatActivity implements Callback<YahooU
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         StockDataEndpoint stockDataEndpoint = retrofit.create(StockDataEndpoint.class);
-        Class<StockDataEndpoint> call = StockDataEndpoint.class;
-        // call.enqueue(this);
-    }
-
+        String query = "q=select * from yahoo.finance.historicaldata where symbol='GOOG' and startDate = '2016-01-09' and endDate = '2016-06-09'";
+        Call<Stock> call = stockDataEndpoint.getData(query);
+        }
     @Override
-    public void onResponse(Call<YahooUser> call, Response<YahooUser> response) {
+    public void onResponse(Call<Stock> call, Response<Stock> response) {
         int code = response.code();
         if (code == 200) {
-            YahooUser user = response.body();
+            Stock user = response.body();
             Toast.makeText(this, "Connection made", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "No connection made" + String.valueOf(code),
                     Toast.LENGTH_LONG).show();
         }
     }
-
     @Override
-    public void onFailure(Call<YahooUser> call, Throwable t) {
+    public void onFailure(Call<Stock> call, Throwable t) {
         Toast.makeText(this, "Nope", Toast.LENGTH_LONG).show();
     }
 }
+
+
 
 
 

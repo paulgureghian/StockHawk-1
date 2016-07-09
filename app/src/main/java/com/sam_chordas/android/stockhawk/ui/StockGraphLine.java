@@ -1,5 +1,8 @@
 package com.sam_chordas.android.stockhawk.ui;
 
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -40,6 +43,8 @@ import java.util.ListIterator;
 
 public class StockGraphLine extends AppCompatActivity implements Callback<List<Stock>> {
 
+    private Cursor mCursor;
+    private Context mContext;
     List<Stock> items;
     private LineChart lineChart;
     Type listType = new TypeToken<List<Stock>>() {}.getType();
@@ -57,6 +62,11 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock_graph_line);
+
+        Intent intent = getIntent();
+        String mStockSymbol = intent.getExtras().getString("symbol");
+
+
 
         symbol = (TextView) findViewById(R.id.symbol);
         date = (TextView) findViewById(R.id.date);
@@ -76,7 +86,7 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
                         listType, new StocksDeserializer()).create()))
                 .build();
         StockDataEndpoint stockDataEndpoint = retrofit.create(StockDataEndpoint.class);
-        String query = "select * from yahoo.finance.historicaldata where symbol='GOOG' and startDate = '2016-06-09' and endDate = '2016-06-19'";
+        String query = "select * from yahoo.finance.historicaldata where symbol='" + mStockSymbol + "' and startDate = '2016-06-09' and endDate = '2016-06-19'";
         Call<List<Stock>> call = stockDataEndpoint.getData(query);
         call.enqueue(this);
     }

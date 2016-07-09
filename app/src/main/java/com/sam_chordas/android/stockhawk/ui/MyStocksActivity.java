@@ -89,7 +89,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                         mCursor.moveToPosition(position);
                         String symbol = mCursor.getString(mCursor.getColumnIndex("symbol"));
                         intent.putExtra("symbol", symbol);
-
                         mContext.startActivity(intent);
 
 

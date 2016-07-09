@@ -43,8 +43,7 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
     List<Stock> items;
     private LineChart lineChart;
     Type listType = new TypeToken<List<Stock>>() {}.getType();
-    public static final String EXTRA_STOCK = "stock";
-    Stock mStock;
+
     TextView symbol;
     TextView date;
     TextView open;
@@ -58,11 +57,9 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock_graph_line);
-        LineChart chart = (LineChart) findViewById(R.id.chart);
-        LineData data = new LineData();
-        chart.setData(data);
-        chart.setDescription("Stock's value over time");
-        chart.invalidate();
+
+
+
 
         symbol = (TextView) findViewById(R.id.symbol);
         date = (TextView) findViewById(R.id.date);
@@ -72,6 +69,7 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
         close = (TextView) findViewById(R.id.close);
         volume = (TextView) findViewById(R.id.volume);
         adj_close = (TextView) findViewById(R.id.adj_close);
+        lineChart = (LineChart) findViewById(R.id.chart);
 
         Gson gson = new GsonBuilder()
                 .create();
@@ -123,6 +121,8 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
         LineDataSet dataSet = new LineDataSet(yVals, "close");
         LineData lineData = new LineData(xVals, dataSet);
         lineChart.setData(lineData);
+        lineChart.setDescription("Stock's value over time");
+
     }
 }
 

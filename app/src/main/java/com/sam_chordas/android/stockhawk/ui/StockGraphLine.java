@@ -58,9 +58,6 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock_graph_line);
 
-
-
-
         symbol = (TextView) findViewById(R.id.symbol);
         date = (TextView) findViewById(R.id.date);
         open = (TextView) findViewById(R.id.open);
@@ -122,6 +119,9 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
         LineData lineData = new LineData(xVals, dataSet);
         lineChart.setData(lineData);
         lineChart.setDescription("Stock's value over time");
+
+        lineChart.invalidate();
+        lineChart.animateY(1000);
 
     }
 }

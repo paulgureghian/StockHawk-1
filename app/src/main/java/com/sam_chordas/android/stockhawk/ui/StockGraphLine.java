@@ -1,6 +1,7 @@
 package com.sam_chordas.android.stockhawk.ui;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -15,20 +16,32 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.data.Stock;
 import com.sam_chordas.android.stockhawk.service.StockDataEndpoint;
 import com.sam_chordas.android.stockhawk.service.StocksDeserializer;
 
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 public class StockGraphLine extends AppCompatActivity implements Callback<List<Stock>> {
 
+    List<Stock> items;
+    private LineChart lineChart;
     Type listType = new TypeToken<List<Stock>>() {}.getType();
     public static final String EXTRA_STOCK = "stock";
     Stock mStock;
@@ -75,6 +88,9 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
     @Override
     public void onResponse(Call<List<Stock>> call, Response<List<Stock>> response) {
 
+        items = response.body();
+        displayChart();
+
         Log.d("res", response.raw().toString());
 
         int code = response.code();
@@ -95,8 +111,20 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
     public void onFailure(Call<List<Stock>> call, Throwable t) {
         Toast.makeText(this, "Nope", Toast.LENGTH_LONG).show();
     }
-}
+    private void displayChart() {
 
+        ArrayList<String> xVals = new ArrayList<>();
+        ArrayList<Entry> yVals = new ArrayList<>();
+
+        for (int i = 0; i < items.size(); i++) {
+            xVals.add(i, items.get(i).getDate());
+            yVals.add(new Entry(Float.valueOf(items.get(i).getClose()), i));
+        }
+        LineDataSet dataSet = new LineDataSet(yVals, "close");
+        LineData lineData = new LineData(xVals, dataSet);
+        lineChart.setData(lineData);
+    }
+}
 
 
 

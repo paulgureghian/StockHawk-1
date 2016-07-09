@@ -37,12 +37,14 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
 public class StockGraphLine extends AppCompatActivity implements Callback<List<Stock>> {
 
+    String mStockSymbol;
     private Cursor mCursor;
     private Context mContext;
     List<Stock> items;
@@ -63,7 +65,7 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
         setContentView(R.layout.activity_stock_graph_line);
 
         Intent intent = getIntent();
-        String mStockSymbol = intent.getExtras().getString("symbol");
+        mStockSymbol = intent.getExtras().getString("symbol");
 
         symbol = (TextView) findViewById(R.id.symbol);
         date = (TextView) findViewById(R.id.date);
@@ -118,11 +120,13 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
         ArrayList<String> xVals = new ArrayList<>();
         ArrayList<Entry> yVals = new ArrayList<>();
 
+        Collections.reverse(items);
+
         for (int i = 0; i < items.size(); i++) {
             xVals.add(i, items.get(i).getDate());
             yVals.add(new Entry(Float.valueOf(items.get(i).getClose()), i));
         }
-        LineDataSet dataSet = new LineDataSet(yVals, "close");
+        LineDataSet dataSet = new LineDataSet(yVals, mStockSymbol);
         LineData lineData = new LineData(xVals, dataSet);
         lineChart.setData(lineData);
         lineChart.setDescription("Stock's value over time");

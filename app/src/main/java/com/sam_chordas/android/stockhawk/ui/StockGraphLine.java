@@ -48,7 +48,6 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
     List<Stock> items;
     private LineChart lineChart;
     Type listType = new TypeToken<List<Stock>>() {}.getType();
-
     TextView symbol;
     TextView date;
     TextView open;
@@ -65,8 +64,6 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
 
         Intent intent = getIntent();
         String mStockSymbol = intent.getExtras().getString("symbol");
-
-
 
         symbol = (TextView) findViewById(R.id.symbol);
         date = (TextView) findViewById(R.id.date);
@@ -130,9 +127,10 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
         lineChart.setData(lineData);
         lineChart.setDescription("Stock's value over time");
 
-        lineChart.invalidate();
-        lineChart.animateY(1000);
 
+
+        lineChart.invalidate();
+        lineChart.animateY(10);
     }
 }
 

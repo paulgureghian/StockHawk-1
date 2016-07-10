@@ -19,6 +19,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -105,7 +106,7 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
         }
         if (code == 200) {
 
-            Toast.makeText(this, "Connection made", Toast.LENGTH_LONG).show();
+           // Toast.makeText(this, "Connection made", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "No connection made" + String.valueOf(code),
                     Toast.LENGTH_LONG).show();
@@ -116,6 +117,8 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
         Toast.makeText(this, "Nope", Toast.LENGTH_LONG).show();
     }
     private void displayChart() {
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setTextSize(11f);
 
         ArrayList<String> xVals = new ArrayList<>();
         ArrayList<Entry> yVals = new ArrayList<>();
@@ -130,11 +133,11 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
         LineData lineData = new LineData(xVals, dataSet);
         lineChart.setData(lineData);
         lineChart.setDescription("Stock's value over time");
-
-
-
+        lineChart.setDescriptionTextSize(15f);
+        lineChart.getLegend().setTextSize(12f);
+        lineChart.setPinchZoom(false);
         lineChart.invalidate();
-        lineChart.animateY(10);
+        //lineChart.animateY();
     }
 }
 

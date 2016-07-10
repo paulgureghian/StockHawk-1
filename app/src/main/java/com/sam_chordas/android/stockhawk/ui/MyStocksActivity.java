@@ -57,6 +57,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
 
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         mContext = this;
         ConnectivityManager cm =

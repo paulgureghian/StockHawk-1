@@ -6,7 +6,9 @@
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:paddingRight="16dp"
+    android:background="@drawable/md_btn_shape"
+    android:backgroundTint="@android:color/holo_purple">
 
     <TextView
         android:id="@+id/stock_symbol"
@@ -17,7 +19,6 @@
         tools:text="GOOG"
         android:backgroundTint="@android:color/holo_blue_bright"
         android:background="@drawable/md_btn_selected"/>
-
 
     <LinearLayout
         android:layout_width="0dp"

@@ -5,6 +5,7 @@
       parent="Theme.AppCompat">
       <item name="colorPrimary">@color/material_blue_500</item>
       <item name="colorPrimaryDark">@color/material_blue_700</item>
+      <item name="android:logo">@mipmap/ic_launcher</item>
     <!-- Customize your theme here. -->
   </style>
 

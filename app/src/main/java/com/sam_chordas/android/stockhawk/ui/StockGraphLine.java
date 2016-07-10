@@ -1,23 +1,16 @@
 package com.sam_chordas.android.stockhawk.ui;
 
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import retrofit2.Response;
 import retrofit2.Callback;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -25,29 +18,19 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.data.Stock;
 import com.sam_chordas.android.stockhawk.service.StockDataEndpoint;
 import com.sam_chordas.android.stockhawk.service.StocksDeserializer;
-
-import org.json.JSONObject;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 public class StockGraphLine extends AppCompatActivity implements Callback<List<Stock>> {
 
     String mStockSymbol;
-    private Cursor mCursor;
-    private Context mContext;
     List<Stock> items;
     private LineChart lineChart;
     Type listType = new TypeToken<List<Stock>>() {}.getType();
@@ -106,7 +89,7 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
         }
         if (code == 200) {
 
-           // Toast.makeText(this, "Connection made", Toast.LENGTH_LONG).show();
+            // Toast.makeText(this, "Connection made", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "No connection made" + String.valueOf(code),
                     Toast.LENGTH_LONG).show();

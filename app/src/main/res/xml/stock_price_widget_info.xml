@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:initialKeyguardLayout="@layout/stock_price_widget"
+    android:configure="com.sam_chordas.android.stockhawk.ui.MyStocksActivity"
     android:initialLayout="@layout/stock_price_widget"
     android:minHeight="40dp"
     android:minWidth="40dp"

@@ -8,7 +8,7 @@
     <string name="input_hint">FB</string>
     <string name="input_prefill">Enter a stock symbol here</string>
     <string name="network_toast">Uh-oh! This app requires an internet connection</string>
-    <string name="appwidget_text">EXAMPLE</string>
+    <string name="appwidget_text">Stock Widget</string>
     <string name="add_widget">Add widget</string>
     <string name="quotes">QUOTES</string>
     <string name="title_activity_setting">Stock Value</string>

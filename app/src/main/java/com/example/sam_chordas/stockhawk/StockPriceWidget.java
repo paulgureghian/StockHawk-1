@@ -13,15 +13,17 @@ import com.sam_chordas.android.stockhawk.ui.MyStocksActivity;
 
 public class StockPriceWidget extends AppWidgetProvider {
 
+    private static final String ACTION_CLICK = "ACTION_CLICK";
+
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
         CharSequence widgetText = context.getString(R.string.appwidget_text);
 
-        //  RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.stock_price_widget);
-        //  views.setTextViewText(R.id.widget_stock_price, widgetText);
-        //  appWidgetManager.updateAppWidget(appWidgetId, views);
-        //  updateAppWidget(context, appWidgetManager, appWidgetId);
+         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.stock_price_widget);
+          views.setTextViewText(R.id.widget_stock_price, widgetText);
+          appWidgetManager.updateAppWidget(appWidgetId, views);
+          updateAppWidget(context, appWidgetManager, appWidgetId);
     }
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {

@@ -68,7 +68,10 @@
             android:permission="android.permission.BIND_REMOTEVIEWS" />
         <service
             android:name=".service.StockWidgetIntentService"
-            android:exported="false"></service>
+            android:exported="false">
+
+        </service>
+
     </application>
 
 </manifest>

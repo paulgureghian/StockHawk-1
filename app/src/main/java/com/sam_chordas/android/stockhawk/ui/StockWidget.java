@@ -32,19 +32,25 @@ public class StockWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-                R.layout.stock_widget);
+        for (int i = 0; i < appWidgetIds.length; ++i) {
 
-        Intent intent = new Intent(context, WidgetService.class);
-        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds);
+            RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
+                    R.layout.stock_widget);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        remoteViews.setOnClickPendingIntent(R.id.widget_list, pendingIntent);
+            Intent intent = new Intent(context, WidgetService.class);
+            intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds);
 
-        for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            remoteViews.setOnClickPendingIntent(R.id.widget_list, pendingIntent);
+            appWidgetManager.updateAppWidget(appWidgetIds[i], remoteViews);
+
+            for (int appWidgetId : appWidgetIds) {
+                updateAppWidget(context, appWidgetManager, appWidgetId);
+            }
+        super.onUpdate(context, appWidgetManager, appWidgetIds);
         }
+
     }
     @Override
     public void onEnabled(Context context) {

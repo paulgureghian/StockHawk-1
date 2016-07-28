@@ -12,4 +12,6 @@
     <string name="quotes">QUOTES</string>
     <string name="title_activity_setting">Stock Value</string>
     <string name="configure">Configure</string>
+    <string name="widget_img_launcher">Widget Image Launcher</string>
+    <string name="widget_header">Widget Header</string>
 </resources>

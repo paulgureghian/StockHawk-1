@@ -43,24 +43,32 @@
             android:authorities="com.sam_chordas.android.stockhawk.data.QuoteProvider"
             android:exported="false" />
 
-        <receiver android:name="com.example.sam_chordas.stockhawk.StockPriceWidget">
+        <activity
+            android:name=".ui.StockGraphLine"
+            android:label="@string/title_activity_setting">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sam_chordas.android.stockhawk.ui.MyStocksActivity" />
+        </activity>
+
+        <receiver
+            android:name=".ui.StockWidget"
+            android:label="Stock Widget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/stock_price_widget_info" />
+                android:resource="@xml/stock_widget_info" />
         </receiver>
 
-        <activity android:name=".ui.StockGraphLine"
-                  android:label="@string/title_activity_setting">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.sam_chordas.android.stockhawk.ui.MyStocksActivity"/>
-
-        </activity>
-
-   </application>
+        <service
+            android:name=".service.WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <service
+            android:name=".service.StockWidgetIntentService"
+            android:exported="false"></service>
+    </application>
 
 </manifest>

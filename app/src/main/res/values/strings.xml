@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Stock Hawk</string>
-    <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
     <string name="action_change_units">Change Units</string>
     <string name="symbol_search">Symbol Search</string>
@@ -12,4 +11,5 @@
     <string name="add_widget">Add widget</string>
     <string name="quotes">QUOTES</string>
     <string name="title_activity_setting">Stock Value</string>
+    <string name="configure">Configure</string>
 </resources>

@@ -27,13 +27,25 @@ public class StockWidget extends AppWidgetProvider {
         } else {
             setRemoteAdapterV11(context, views);
         }
-
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-    }
 
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
+                R.layout.stock_widget);
+
+        Intent intent = new Intent(context, WidgetService.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setOnClickPendingIntent(R.id.widget_list, pendingIntent);
+
+        for (int appWidgetId : appWidgetIds) {
+            updateAppWidget(context, appWidgetManager, appWidgetId);
+        }
+    }
     @Override
     public void onEnabled(Context context) {
     }

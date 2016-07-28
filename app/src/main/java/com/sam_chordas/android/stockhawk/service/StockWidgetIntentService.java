@@ -18,22 +18,8 @@ public class StockWidgetIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
-    //    RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-        //        R.layout.stock_widget);
 
-      //  Intent intent = new Intent(context, WidgetService.class);
-        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-      //  intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds);
-
-      //  PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-      //  remoteViews.setOnClickPendingIntent(R.id.widget_list, pendingIntent);
-
-
-       // for (int appWidgetId : appWidgetIds) {
-        //    updateAppWidget(context, appWidgetManager, appWidgetId);
-
-
-        }
     }
+}
 
 

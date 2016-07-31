@@ -6,7 +6,6 @@ import net.simonvt.schematic.annotation.ContentUri;
 import net.simonvt.schematic.annotation.InexactContentUri;
 import net.simonvt.schematic.annotation.TableEndpoint;
 
-
 @ContentProvider(authority = QuoteProvider.AUTHORITY, database = QuoteDatabase.class)
 public class QuoteProvider {
   public static final String AUTHORITY = "com.sam_chordas.android.stockhawk.data.QuoteProvider";
@@ -16,7 +15,6 @@ public class QuoteProvider {
   interface Path{
     String QUOTES = "quotes";
   }
-
   private static Uri buildUri(String... paths){
     Uri.Builder builder = BASE_CONTENT_URI.buildUpon();
     for (String path:paths){
@@ -24,7 +22,6 @@ public class QuoteProvider {
     }
     return builder.build();
   }
-
   @TableEndpoint(table = QuoteDatabase.QUOTES)
   public static class Quotes{
     @ContentUri(

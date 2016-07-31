@@ -42,7 +42,7 @@ public class StockWidget extends AppWidgetProvider {
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            remoteViews.setOnClickPendingIntent(R.id.widget_list, pendingIntent);
+            remoteViews.setOnClickPendingIntent(R.id.widget_layout_main, pendingIntent);
             appWidgetManager.updateAppWidget(appWidgetIds[i], remoteViews);
 
             for (int appWidgetId : appWidgetIds) {

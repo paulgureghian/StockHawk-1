@@ -4,18 +4,20 @@ import android.content.ContentProviderClient;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.graphics.Color;
 import android.widget.ListView;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
-
+import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
-
+import com.sam_chordas.android.stockhawk.data.QuoteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
 public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
 
+    QuoteProvider quoteProvider = new QuoteProvider();
     List<String> collection = new ArrayList<>();
     Context context;
     Intent intent;
@@ -25,18 +27,23 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
 
         mCursor = context.getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI, new String[]{"Distinct " + QuoteColumns.SYMBOL}, null, null, null);
 
-        int index = mCursor.getColumnIndex(QuoteColumns._ID);
+        DatabaseUtils.dumpCursor(mCursor);
+
+        int index = mCursor.getColumnIndex(QuoteColumns.SYMBOL);
 
         if (mCursor != null) {
             while (mCursor.moveToNext()) {
-        //        newId = mCursor.getString(index);
+               // newId = mCursor.getString(index);
             }
         } else {
 
         }
         collection.clear();
 
-      //  collection.add();
+        collection.add(QuoteColumns.SYMBOL);
+
+        mCursor.close();
+
     }
     public WidgetDataProvider(Context context, Intent intent) {
         this.context = context;

@@ -33,10 +33,12 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
         int index = mCursor.getColumnIndex(QuoteColumns.SYMBOL);
 
         if (mCursor != null) {
-            while (mCursor.moveToFirst()) {
+            while (mCursor.moveToNext()) {
 
                 str = mCursor.getString(mCursor.getColumnIndex(QuoteColumns.SYMBOL));
+                str = mCursor.getString(mCursor.getColumnIndex(QuoteColumns.BIDPRICE));
 
+                collection.clear();
                 collection.add(str);
 
             }
@@ -44,7 +46,7 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
 
         }
 
-
+       collection.clear();
 
 
         mCursor.close();

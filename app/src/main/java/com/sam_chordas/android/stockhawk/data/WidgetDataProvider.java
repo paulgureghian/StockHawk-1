@@ -17,6 +17,7 @@ import java.util.List;
 
 public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
 
+    String str;
     QuoteProvider quoteProvider = new QuoteProvider();
     List<String> collection = new ArrayList<>();
     Context context;
@@ -32,15 +33,19 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
         int index = mCursor.getColumnIndex(QuoteColumns.SYMBOL);
 
         if (mCursor != null) {
-            while (mCursor.moveToNext()) {
-               // newId = mCursor.getString(index);
+            while (mCursor.moveToFirst()) {
+
+                str = mCursor.getString(mCursor.getColumnIndex(QuoteColumns.SYMBOL));
+
+                collection.add(str);
+
             }
         } else {
 
         }
-        collection.clear();
 
-        collection.add(QuoteColumns.SYMBOL);
+
+
 
         mCursor.close();
 

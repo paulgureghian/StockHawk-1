@@ -9,24 +9,28 @@ import android.graphics.Color;
 import android.widget.ListView;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
+
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 import com.sam_chordas.android.stockhawk.data.QuoteDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
 
     String str;
+    String str1;
     QuoteProvider quoteProvider = new QuoteProvider();
-    List<String> collection = new ArrayList<>();
+    List<Stock> collection = new ArrayList<>();
     Context context;
     Intent intent;
     private Cursor mCursor;
 
     private void initData() {
+        collection.clear();
 
-        mCursor = context.getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI, new String[]{"Distinct " + QuoteColumns.SYMBOL}, null, null, null);
+        mCursor = context.getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI, null, null, null, null);
 
         DatabaseUtils.dumpCursor(mCursor);
 
@@ -35,22 +39,20 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
         if (mCursor != null) {
             while (mCursor.moveToNext()) {
 
-                str = mCursor.getString(mCursor.getColumnIndex(QuoteColumns.SYMBOL));
-                str = mCursor.getString(mCursor.getColumnIndex(QuoteColumns.BIDPRICE));
+                Stock stock = new Stock();
+                stock.setSymbol(mCursor.getString(mCursor.getColumnIndex(QuoteColumns.SYMBOL)));
 
-                collection.clear();
-                collection.add(str);
+                //  str = mCursor.getString(mCursor.getColumnIndex(QuoteColumns.SYMBOL));
+                //  str1 = mCursor.getString(mCursor.getColumnIndex(QuoteColumns.BIDPRICE));
 
+                collection.add(stock);
+                // collection.add(str1);
             }
         } else {
 
         }
 
-       collection.clear();
-
-
         mCursor.close();
-
     }
     public WidgetDataProvider(Context context, Intent intent) {
         this.context = context;
@@ -60,26 +62,22 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
     public void onCreate() {
         initData();
     }
-
     @Override
     public void onDataSetChanged() {
         initData();
     }
-
     @Override
     public void onDestroy() {
     }
-
     @Override
     public int getCount() {
         return collection.size();
     }
-
     @Override
     public RemoteViews getViewAt(int position) {
         RemoteViews remoteView = new RemoteViews(context.getPackageName(),
                 android.R.layout.simple_list_item_1);
-        remoteView.setTextViewText(android.R.id.text1, collection.get(position));
+        remoteView.setTextViewText(android.R.id.text1, collection.get(position).getSymbol());
         remoteView.setTextColor(android.R.id.text1, Color.BLACK);
         return remoteView;
     }

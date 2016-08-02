@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 import com.sam_chordas.android.stockhawk.data.QuoteDatabase;
@@ -19,8 +20,7 @@ import java.util.List;
 
 public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
 
-    String str;
-    String str1;
+
     QuoteProvider quoteProvider = new QuoteProvider();
     List<Stock> collection = new ArrayList<>();
     Context context;
@@ -40,18 +40,14 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
             while (mCursor.moveToNext()) {
 
                 Stock stock = new Stock();
-                stock.setSymbol(mCursor.getString(mCursor.getColumnIndex(QuoteColumns.SYMBOL)));
-
-                //  str = mCursor.getString(mCursor.getColumnIndex(QuoteColumns.SYMBOL));
-                //  str1 = mCursor.getString(mCursor.getColumnIndex(QuoteColumns.BIDPRICE));
+                stock.setSymbol  (mCursor.getString (mCursor.getColumnIndex(QuoteColumns.SYMBOL)));
+                stock.setBid_Price(mCursor.getString(mCursor.getColumnIndex(QuoteColumns.BIDPRICE)));
+                stock.setChange(mCursor.getString(mCursor.getColumnIndex(QuoteColumns.CHANGE)));
 
                 collection.add(stock);
-                // collection.add(str1);
             }
         } else {
-
         }
-
         mCursor.close();
     }
     public WidgetDataProvider(Context context, Intent intent) {
@@ -76,9 +72,11 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
     @Override
     public RemoteViews getViewAt(int position) {
         RemoteViews remoteView = new RemoteViews(context.getPackageName(),
-                android.R.layout.simple_list_item_1);
-        remoteView.setTextViewText(android.R.id.text1, collection.get(position).getSymbol());
-        remoteView.setTextColor(android.R.id.text1, Color.BLACK);
+                R.layout.widget_layout);
+        remoteView.setTextViewText(R.id.symbol, collection.get(position).getSymbol());
+        remoteView.setTextViewText(R.id.bid_price, collection.get(position).getBid_Price());
+        remoteView.setTextViewText(R.id.change, collection.get(position).getChange());
+        remoteView.setTextColor(R.layout.widget_layout, Color.BLACK);
         return remoteView;
     }
 

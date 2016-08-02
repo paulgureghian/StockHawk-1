@@ -14,13 +14,15 @@ public class Stock {
     String Close;
     String Volume;
     String Adj_Close;
+    String Bid_Price;
+    String Change;
 
     public String getSymbol() {
         return Symbol;
     }
 
     public void setSymbol(String symbol) {
-        this.Symbol = Symbol;
+        this.Symbol = symbol;
     }
 
     public String getDate() {
@@ -28,7 +30,7 @@ public class Stock {
     }
 
     public void setDate(String date) {
-        this.Date = Date;
+        this.Date = date;
     }
 
     public String getOpen() {
@@ -36,7 +38,7 @@ public class Stock {
     }
 
     public void setOpen(String open) {
-        this.Open = Open;
+        this.Open = open;
     }
 
     public String getHigh() {
@@ -44,7 +46,7 @@ public class Stock {
     }
 
     private void setHigh(String high) {
-        this.High = High;
+        this.High = high;
     }
 
     public String getLow() {
@@ -52,7 +54,7 @@ public class Stock {
     }
 
     public void setLow(String low) {
-        this.Low = Low;
+        this.Low = low;
     }
 
     public String getClose() {
@@ -60,7 +62,7 @@ public class Stock {
     }
 
     public void setClose(String close) {
-        this.Close = Close;
+        this.Close = close;
     }
 
     public String getVolume() {
@@ -68,7 +70,7 @@ public class Stock {
     }
 
     public void setVolume(String volume) {
-        this.Volume = Volume;
+        this.Volume = volume;
     }
 
     public String getAdj_Close() {
@@ -76,7 +78,15 @@ public class Stock {
     }
 
     public void setAdj_Close(String adj_close) {
-        this.Adj_Close = Adj_Close;
+        this.Adj_Close = adj_close;
     }
+
+    public String getBid_Price() {return Bid_Price;}
+
+    public void setBid_Price(String bid_price) {this.Bid_Price = bid_price;}
+
+    public String getChange() { return  Change; }
+
+    public void  setChange (String change) { this.Change = change; }
 }
 

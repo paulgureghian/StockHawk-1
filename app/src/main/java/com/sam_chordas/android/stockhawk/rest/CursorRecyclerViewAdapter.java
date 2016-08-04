@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.support.v7.widget.RecyclerView;
 
+import com.sam_chordas.android.stockhawk.R;
+
 public abstract class CursorRecyclerViewAdapter <VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH>{
   private static final String LOG_TAG = CursorRecyclerViewAdapter.class.getSimpleName();
   private Cursor mCursor;
@@ -14,7 +16,7 @@ public abstract class CursorRecyclerViewAdapter <VH extends RecyclerView.ViewHol
   public CursorRecyclerViewAdapter(Context context, Cursor cursor){
     mCursor = cursor;
     dataIsValid = cursor != null;
-    rowIdColumn = dataIsValid ? mCursor.getColumnIndex("_id") : -1;
+    rowIdColumn = dataIsValid ? mCursor.getColumnIndex(String.valueOf(R.string.id)) : -1;
     mDataSetObserver = new NotifyingDataSetObserver();
     if (dataIsValid){
       mCursor.registerDataSetObserver(mDataSetObserver);
@@ -49,10 +51,10 @@ public abstract class CursorRecyclerViewAdapter <VH extends RecyclerView.ViewHol
   @Override
   public void onBindViewHolder(VH viewHolder, int position) {
     if (!dataIsValid){
-      throw new IllegalStateException("This should only be called when Cursor is valid");
+      throw new IllegalStateException(String.valueOf(R.string.valid_cursor));
     }
     if (!mCursor.moveToPosition(position)){
-      throw new IllegalStateException("Could not move Cursor to position: " + position);
+      throw new IllegalStateException(String.valueOf(R.string.could_not_move_cursor) + position);
     }
 
     onBindViewHolder(viewHolder, mCursor);
@@ -71,7 +73,7 @@ public abstract class CursorRecyclerViewAdapter <VH extends RecyclerView.ViewHol
       if (mDataSetObserver != null){
         mCursor.registerDataSetObserver(mDataSetObserver);
       }
-      rowIdColumn = newCursor.getColumnIndexOrThrow("_id");
+      rowIdColumn = newCursor.getColumnIndexOrThrow(String.valueOf(R.string.id1));
       dataIsValid = true;
       notifyDataSetChanged();
     }else{

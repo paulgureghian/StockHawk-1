@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 import com.sam_chordas.android.stockhawk.service.StockTaskService;
@@ -32,14 +33,14 @@ public class Utils {
         try {
             jsonObject = new JSONObject(JSON);
             if (jsonObject != null && jsonObject.length() != 0) {
-                jsonObject = jsonObject.getJSONObject("query");
-                int count = Integer.parseInt(jsonObject.getString("count"));
+                jsonObject = jsonObject.getJSONObject(String.valueOf(R.string.query));
+                int count = Integer.parseInt(jsonObject.getString(String.valueOf(R.string.count)));
                 if (count == 1) {
-                    jsonObject = jsonObject.getJSONObject("results")
-                            .getJSONObject("quote");
+                    jsonObject = jsonObject.getJSONObject(String.valueOf(R.string.results))
+                            .getJSONObject(String.valueOf(R.string.quote));
                     batchOperations.add(buildBatchOperation(jsonObject));
                 } else {
-                    resultsArray = jsonObject.getJSONObject("results").getJSONArray("quote");
+                    resultsArray = jsonObject.getJSONObject(String.valueOf(R.string.results)).getJSONArray(String.valueOf(R.string.quote));
 
                     if (resultsArray != null && resultsArray.length() != 0) {
                         for (int i = 0; i < resultsArray.length(); i++) {
@@ -50,12 +51,12 @@ public class Utils {
                 }
             }
         } catch (JSONException e) {
-            Log.e(LOG_TAG, "String to JSON failed: " + e);
+            Log.e(LOG_TAG, String.valueOf(R.string.failed)  + e);
 
         } catch (NumberFormatException nfe) {
-            Log.e(LOG_TAG, "Invalid stock symbol" + nfe.toString());
+            Log.e(LOG_TAG, String.valueOf(R.string.invalid) + nfe.toString());
             nfe.printStackTrace();
-            EventBus.getDefault().post(new MessageEvent("hi"));
+            EventBus.getDefault().post(new MessageEvent(String.valueOf(R.string.hi)));
         }
         return batchOperations;
     }
@@ -65,7 +66,7 @@ public class Utils {
     }
     public static String truncateChange(String change, boolean isPercentChange) {
         String weight = change.substring(0, 1);
-        String ampersand = "";
+        String ampersand = String.valueOf(R.string.is_up);
         if (isPercentChange) {
             ampersand = change.substring(change.length() - 1, change.length());
             change = change.substring(0, change.length() - 1);
@@ -83,11 +84,11 @@ public class Utils {
         ContentProviderOperation.Builder builder = ContentProviderOperation.newInsert(
                 QuoteProvider.Quotes.CONTENT_URI);
         try {
-            String change = jsonObject.getString("Change");
-            builder.withValue(QuoteColumns.SYMBOL, jsonObject.getString("symbol"));
-            builder.withValue(QuoteColumns.BIDPRICE, truncateBidPrice(jsonObject.getString("Bid")));
+            String change = jsonObject.getString(String.valueOf(R.string.change));
+            builder.withValue(QuoteColumns.SYMBOL, jsonObject.getString(String.valueOf(R.string.symbol)));
+            builder.withValue(QuoteColumns.BIDPRICE, truncateBidPrice(jsonObject.getString(String.valueOf(R.string.bid))));
             builder.withValue(QuoteColumns.PERCENT_CHANGE, truncateChange(
-                    jsonObject.getString("ChangeinPercent"), true));
+                    jsonObject.getString(String.valueOf(R.string.change_in_percent)), true));
             builder.withValue(QuoteColumns.CHANGE, truncateChange(change, false));
             builder.withValue(QuoteColumns.ISCURRENT, 1);
             if (change.charAt(0) == '-') {

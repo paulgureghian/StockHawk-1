@@ -20,7 +20,6 @@ import java.util.List;
 
 public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
 
-
     QuoteProvider quoteProvider = new QuoteProvider();
     List<Stock> collection = new ArrayList<>();
     Context context;
@@ -77,6 +76,7 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
         remoteView.setTextViewText(R.id.bid_price, collection.get(position).getBid_Price());
         remoteView.setTextViewText(R.id.change, collection.get(position).getChange());
         remoteView.setTextColor(R.layout.widget_layout, Color.BLACK);
+
         return remoteView;
     }
 

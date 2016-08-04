@@ -51,12 +51,12 @@ public class Utils {
                 }
             }
         } catch (JSONException e) {
-            Log.e(LOG_TAG, String.valueOf(R.string.failed)  + e);
+            Log.e(LOG_TAG, "String to JSON failed: "  + e);
 
         } catch (NumberFormatException nfe) {
-            Log.e(LOG_TAG, String.valueOf(R.string.invalid) + nfe.toString());
+            Log.e(LOG_TAG, "Invalid stock symbol" + nfe.toString());
             nfe.printStackTrace();
-            EventBus.getDefault().post(new MessageEvent(String.valueOf(R.string.hi)));
+            EventBus.getDefault().post(new MessageEvent("hi"));
         }
         return batchOperations;
     }

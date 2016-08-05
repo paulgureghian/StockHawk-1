@@ -33,14 +33,14 @@ public class Utils {
         try {
             jsonObject = new JSONObject(JSON);
             if (jsonObject != null && jsonObject.length() != 0) {
-                jsonObject = jsonObject.getJSONObject(String.valueOf(R.string.query));
-                int count = Integer.parseInt(jsonObject.getString(String.valueOf(R.string.count)));
+                jsonObject = jsonObject.getJSONObject("query");
+                int count = Integer.parseInt(jsonObject.getString("count"));
                 if (count == 1) {
-                    jsonObject = jsonObject.getJSONObject(String.valueOf(R.string.results))
-                            .getJSONObject(String.valueOf(R.string.quote));
+                    jsonObject = jsonObject.getJSONObject("results")
+                            .getJSONObject("quote");
                     batchOperations.add(buildBatchOperation(jsonObject));
                 } else {
-                    resultsArray = jsonObject.getJSONObject(String.valueOf(R.string.results)).getJSONArray(String.valueOf(R.string.quote));
+                    resultsArray = jsonObject.getJSONObject("results").getJSONArray("quote");
 
                     if (resultsArray != null && resultsArray.length() != 0) {
                         for (int i = 0; i < resultsArray.length(); i++) {

@@ -16,13 +16,12 @@ public abstract class CursorRecyclerViewAdapter <VH extends RecyclerView.ViewHol
   public CursorRecyclerViewAdapter(Context context, Cursor cursor){
     mCursor = cursor;
     dataIsValid = cursor != null;
-    rowIdColumn = dataIsValid ? mCursor.getColumnIndex(String.valueOf(R.string.id)) : -1;
+    rowIdColumn = dataIsValid ? mCursor.getColumnIndex("_id") : -1;
     mDataSetObserver = new NotifyingDataSetObserver();
     if (dataIsValid){
       mCursor.registerDataSetObserver(mDataSetObserver);
     }
   }
-
   public Cursor getCursor(){
     return mCursor;
   }
@@ -34,14 +33,12 @@ public abstract class CursorRecyclerViewAdapter <VH extends RecyclerView.ViewHol
     }
     return 0;
   }
-
   @Override public long getItemId(int position) {
     if (dataIsValid && mCursor != null && mCursor.moveToPosition(position)){
       return mCursor.getLong(rowIdColumn);
     }
     return 0;
   }
-
   @Override public void setHasStableIds(boolean hasStableIds) {
     super.setHasStableIds(true);
   }
@@ -51,10 +48,10 @@ public abstract class CursorRecyclerViewAdapter <VH extends RecyclerView.ViewHol
   @Override
   public void onBindViewHolder(VH viewHolder, int position) {
     if (!dataIsValid){
-      throw new IllegalStateException(String.valueOf(R.string.valid_cursor));
+      throw new IllegalStateException("This should only be called when cursor is valid");
     }
     if (!mCursor.moveToPosition(position)){
-      throw new IllegalStateException(String.valueOf(R.string.could_not_move_cursor) + position);
+      throw new IllegalStateException("Could not move cursor to position: " + position);
     }
 
     onBindViewHolder(viewHolder, mCursor);

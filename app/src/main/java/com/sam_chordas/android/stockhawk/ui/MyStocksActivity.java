@@ -29,6 +29,7 @@ import com.sam_chordas.android.stockhawk.rest.MessageEvent;
 import com.sam_chordas.android.stockhawk.rest.QuoteCursorAdapter;
 import com.sam_chordas.android.stockhawk.rest.RecyclerViewItemClickListener;
 import com.sam_chordas.android.stockhawk.rest.Utils;
+import com.sam_chordas.android.stockhawk.service.StockIntentService;
 import com.sam_chordas.android.stockhawk.service.StockTaskService;
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.PeriodicTask;
@@ -50,6 +51,8 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     private Context mContext;
     private Cursor mCursor;
     boolean isConnected;
+    public StockTaskService stockTaskService = new StockTaskService();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +71,13 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         setContentView(R.layout.activity_my_stocks);
 
 
+        mServiceIntent = new Intent(this, StockIntentService.class);
+
         if (savedInstanceState == null) {
 
-        //    mServiceIntent.putExtra("tag", "init");
+            mServiceIntent.putExtra("tag", "init");
             if (isConnected) {
-        //        startService(mServiceIntent);
+                startService(mServiceIntent);
             } else {
                 networkToast();
             }

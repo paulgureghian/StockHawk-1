@@ -84,11 +84,11 @@ public class Utils {
         ContentProviderOperation.Builder builder = ContentProviderOperation.newInsert(
                 QuoteProvider.Quotes.CONTENT_URI);
         try {
-            String change = jsonObject.getString(String.valueOf(R.string.change));
-            builder.withValue(QuoteColumns.SYMBOL, jsonObject.getString(String.valueOf(R.string.symbol)));
-            builder.withValue(QuoteColumns.BIDPRICE, truncateBidPrice(jsonObject.getString(String.valueOf(R.string.bid))));
+            String change = jsonObject.getString("Change");
+            builder.withValue(QuoteColumns.SYMBOL, jsonObject.getString("symbol"));
+            builder.withValue(QuoteColumns.BIDPRICE, truncateBidPrice(jsonObject.getString("Bid")));
             builder.withValue(QuoteColumns.PERCENT_CHANGE, truncateChange(
-                    jsonObject.getString(String.valueOf(R.string.change_in_percent)), true));
+                    jsonObject.getString("ChangeinPercent"), true));
             builder.withValue(QuoteColumns.CHANGE, truncateChange(change, false));
             builder.withValue(QuoteColumns.ISCURRENT, 1);
             if (change.charAt(0) == '-') {

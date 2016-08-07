@@ -14,22 +14,17 @@
     <string name="configure">Configure</string>
     <string name="widget_img_launcher">Widget Image Launcher</string>
     <string name="widget_header">Stock Hawk</string>
-    <string name="query">query</string>
-    <string name="count">count</string>
     <string name="saved">This stock is already saved</string>
     <string name="results">results</string>
     <string name="quote">quote</string>
-    <string name="quotes1">quotes</string>
     <string name="symbol">symbol</string>
     <string name="bid_price">bid_price</string>
     <string name="is_up">is_up</string>
     <string name="change">Change</string>
-    <string name="change1">change</string>
+
     <string name="bid">Bid</string>
     <string name="change_in_percent">Change in Percent</string>
     <string name="percent_change">percent_change</string>
-    <string name="valid_cursor">This should only be called when Cursor is valid</string>
-    <string name="could_not_move_cursor">Could not move Cursor to position:</string>
     <string name="id">id</string>
 
 </resources>

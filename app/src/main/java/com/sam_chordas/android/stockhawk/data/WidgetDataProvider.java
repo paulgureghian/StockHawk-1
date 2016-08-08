@@ -74,7 +74,9 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
                 R.layout.widget_layout);
         remoteView.setTextViewText(R.id.symbol, collection.get(position).getSymbol());
         remoteView.setTextViewText(R.id.bid_price, collection.get(position).getBid_Price());
+        remoteView.setContentDescription(R.id.bid_price, "Bid Price: " + collection.get(position).getBid_Price());
         remoteView.setTextViewText(R.id.change, collection.get(position).getChange());
+        remoteView.setContentDescription(R.id.change, "Change: " + collection.get(position).getChange());
         remoteView.setTextColor(R.layout.widget_layout, Color.BLACK);
 
         return remoteView;

@@ -1,20 +1,13 @@
 package com.sam_chordas.android.stockhawk.data;
 
-import android.content.ContentProviderClient;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.graphics.Color;
-import android.widget.ListView;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
-
 import com.sam_chordas.android.stockhawk.R;
-import com.sam_chordas.android.stockhawk.data.QuoteColumns;
-import com.sam_chordas.android.stockhawk.data.QuoteProvider;
-import com.sam_chordas.android.stockhawk.data.QuoteDatabase;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,33 +67,27 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
                 R.layout.widget_layout);
         remoteView.setTextViewText(R.id.symbol, collection.get(position).getSymbol());
         remoteView.setTextViewText(R.id.bid_price, collection.get(position).getBid_Price());
-        remoteView.setContentDescription(R.id.bid_price, "Bid Price: " + collection.get(position).getBid_Price());
+        remoteView.setContentDescription(R.id.bid_price,context.getResources().getString(R.string.bid_price)  + collection.get(position).getBid_Price());
         remoteView.setTextViewText(R.id.change, collection.get(position).getChange());
-        remoteView.setContentDescription(R.id.change, "Change: " + collection.get(position).getChange());
+        remoteView.setContentDescription(R.id.change, context.getResources().getString(R.string.change)  + collection.get(position).getChange());
         remoteView.setTextColor(R.layout.widget_layout, Color.BLACK);
 
         return remoteView;
     }
-
     @Override
     public RemoteViews getLoadingView() {
         return null;
     }
-
     @Override
     public int getViewTypeCount() {
         return 1;
     }
-
     @Override
     public long getItemId(int position) {
         return position;
     }
-
     @Override
     public boolean hasStableIds() {
         return true;
     }
-
-
 }

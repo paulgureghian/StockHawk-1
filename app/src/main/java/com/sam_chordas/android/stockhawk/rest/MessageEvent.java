@@ -1,10 +1,7 @@
 package com.sam_chordas.android.stockhawk.rest;
 
 
-import android.widget.Toast;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 public class MessageEvent {
 

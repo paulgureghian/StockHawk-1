@@ -5,8 +5,6 @@ import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.support.v7.widget.RecyclerView;
 
-import com.sam_chordas.android.stockhawk.R;
-
 public abstract class CursorRecyclerViewAdapter <VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH>{
   private static final String LOG_TAG = CursorRecyclerViewAdapter.class.getSimpleName();
   private Cursor mCursor;
@@ -25,7 +23,6 @@ public abstract class CursorRecyclerViewAdapter <VH extends RecyclerView.ViewHol
   public Cursor getCursor(){
     return mCursor;
   }
-
   @Override
   public int getItemCount(){
     if (dataIsValid && mCursor != null){
@@ -53,10 +50,8 @@ public abstract class CursorRecyclerViewAdapter <VH extends RecyclerView.ViewHol
     if (!mCursor.moveToPosition(position)){
       throw new IllegalStateException("Could not move cursor to position: " + position);
     }
-
     onBindViewHolder(viewHolder, mCursor);
   }
-
   public Cursor swapCursor(Cursor newCursor){
     if (newCursor == mCursor){
       return null;
@@ -80,14 +75,12 @@ public abstract class CursorRecyclerViewAdapter <VH extends RecyclerView.ViewHol
     }
     return oldCursor;
   }
-
   private class NotifyingDataSetObserver extends DataSetObserver{
     @Override public void onChanged() {
       super.onChanged();
       dataIsValid = true;
       notifyDataSetChanged();
     }
-
     @Override public void onInvalidated() {
       super.onInvalidated();
       dataIsValid = false;

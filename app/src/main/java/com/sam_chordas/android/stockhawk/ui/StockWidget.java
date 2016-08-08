@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
-
 import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.service.WidgetService;
 
@@ -50,7 +49,6 @@ public class StockWidget extends AppWidgetProvider {
             }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
         }
-
     }
     @Override
     public void onEnabled(Context context) {

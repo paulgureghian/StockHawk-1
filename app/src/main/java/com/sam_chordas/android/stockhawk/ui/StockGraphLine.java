@@ -1,5 +1,6 @@
 package com.sam_chordas.android.stockhawk.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,7 @@ import java.util.List;
 
 public class StockGraphLine extends AppCompatActivity implements Callback<List<Stock>> {
 
+    Context context;
     String mStockSymbol;
     List<Stock> items;
     private LineChart lineChart;
@@ -91,13 +93,13 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
 
             // Toast.makeText(this, "Connection made", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(this, "No connection made" + String.valueOf(code),
+            Toast.makeText(this, context.getResources().getString(R.string.no_connection_made) + String.valueOf(code),
                     Toast.LENGTH_LONG).show();
         }
     }
     @Override
     public void onFailure(Call<List<Stock>> call, Throwable t) {
-        Toast.makeText(this, "Nope", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, context.getResources().getString(R.string.nope) , Toast.LENGTH_LONG).show();
     }
     private void displayChart() {
         XAxis xAxis = lineChart.getXAxis();
@@ -115,7 +117,7 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
         LineDataSet dataSet = new LineDataSet(yVals, mStockSymbol);
         LineData lineData = new LineData(xVals, dataSet);
         lineChart.setData(lineData);
-        lineChart.setDescription("Stock's value over time");
+        lineChart.setDescription(getResources().getString(R.string.stock_value_time));
         lineChart.setDescriptionTextSize(15f);
         lineChart.getLegend().setTextSize(12f);
         lineChart.setPinchZoom(false);

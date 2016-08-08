@@ -161,7 +161,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onInvalidStockSymbol(MessageEvent event) {
-        Toast.makeText(getApplicationContext(), "Invalid Stock Symbol", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), mContext.getResources().getString(R.string.invalid_stock_symbol) , Toast.LENGTH_LONG).show();
     }
     @Override
     public void onStart() {
@@ -181,7 +181,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     public void networkToast() {
         Toast.makeText(mContext, getString(R.string.network_toast), Toast.LENGTH_SHORT).show();
     }
-
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);

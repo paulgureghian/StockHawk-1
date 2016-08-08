@@ -16,5 +16,13 @@
     <string name="stock_value_time">Stock\'s value over time</string>
     <string name="ok">OK</string>
     <string name="invalid_stock_symbol">Invalid Stock Symbol</string>
+    <string name="bid_price">Bid Price</string>
+    <string name="change">Change</string>
+    <string name="no_connection_made">No connection made</string>
+    <string name="nope">Nope</string>
+
+
+
+
 
 </resources>

@@ -3,22 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="72dp"
+    android:background="@drawable/md_btn_shape"
+    android:backgroundTint="@android:color/holo_purple"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:background="@drawable/md_btn_shape"
-    android:backgroundTint="@android:color/holo_purple">
+    android:paddingRight="16dp">
 
     <TextView
         android:id="@+id/stock_symbol"
         style="@style/StockSymbolTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="start|center_vertical"
-        tools:text="GOOG"
+        android:background="@drawable/md_btn_selected"
         android:backgroundTint="@android:color/holo_blue_bright"
-        android:background="@drawable/md_btn_selected"/>
+        android:gravity="start|center_vertical"
+        tools:text="GOOG" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -31,10 +31,9 @@
             style="@style/BidPriceTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="10sp"
             android:paddingEnd="10sp"
-            tools:text="1000.00"/>
-
+            android:paddingStart="10sp"
+            tools:text="1000.00" />
 
         <TextView
             android:id="@+id/change"
@@ -42,11 +41,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/percent_change_pill"
-            android:paddingStart="3dp"
             android:paddingEnd="3dp"
-            tools:text="100%"
-            android:contentDescription="bid price"/>
-
+            android:paddingStart="3dp"
+            tools:text="100%" />
 
     </LinearLayout>
 </LinearLayout>

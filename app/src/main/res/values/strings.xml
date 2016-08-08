@@ -5,26 +5,16 @@
     <string name="symbol_search">Symbol Search</string>
     <string name="content_test">Search for a Stock Symbol</string>
     <string name="input_hint">FB</string>
-    <string name="input_prefill">Enter a stock symbol here</string>
+    <string name="input_prefill">Enter a Stock Symbol here</string>
     <string name="network_toast">Uh-oh! This app requires an internet connection</string>
     <string name="appwidget_text">Stock Widget</string>
-    <string name="add_widget">Add widget</string>
-    <string name="quotes">QUOTES</string>
+    <string name="add_widget">Add Widget</string>
     <string name="title_activity_setting">Stock Value</string>
-    <string name="configure">Configure</string>
     <string name="widget_img_launcher">Widget Image Launcher</string>
     <string name="widget_header">Stock Hawk</string>
     <string name="saved">This stock is already saved</string>
-    <string name="results">results</string>
-    <string name="quote">quote</string>
-    <string name="symbol">symbol</string>
-    <string name="bid_price">bid_price</string>
-    <string name="is_up">is_up</string>
-    <string name="change">Change</string>
-
-    <string name="bid">Bid</string>
-    <string name="change_in_percent">Change in Percent</string>
-    <string name="percent_change">percent_change</string>
-    <string name="id">id</string>
+    <string name="stock_value_time">Stock\'s value over time</string>
+    <string name="ok">OK</string>
+    <string name="invalid_stock_symbol">Invalid Stock Symbol</string>
 
 </resources>

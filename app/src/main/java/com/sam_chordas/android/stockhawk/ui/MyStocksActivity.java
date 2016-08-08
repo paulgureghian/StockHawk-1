@@ -53,7 +53,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     boolean isConnected;
     public StockTaskService stockTaskService = new StockTaskService();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -69,7 +68,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
         setContentView(R.layout.activity_my_stocks);
-
 
         mServiceIntent = new Intent(this, StockIntentService.class);
 
@@ -97,8 +95,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                         String symbol = mCursor.getString(mCursor.getColumnIndex("symbol"));
                         intent.putExtra("symbol", symbol);
                         mContext.startActivity(intent);
-
-
                     }
                 }));
         recyclerView.setAdapter(mCursorAdapter);
@@ -163,30 +159,25 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
             GcmNetworkManager.getInstance(this).schedule(periodicTask);
         }
     }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onInvalidStockSymbol(MessageEvent event) {
         Toast.makeText(getApplicationContext(), "Invalid Stock Symbol", Toast.LENGTH_LONG).show();
     }
-
     @Override
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }
-
     @Override
     public void onStop() {
         EventBus.getDefault().unregister(this);
         super.onStop();
     }
-
     @Override
     public void onResume() {
         super.onResume();
         getLoaderManager().restartLoader(CURSOR_LOADER_ID, null, this);
     }
-
     public void networkToast() {
         Toast.makeText(mContext, getString(R.string.network_toast), Toast.LENGTH_SHORT).show();
     }
@@ -197,14 +188,12 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.my_stocks, menu);
         restoreActionBar();
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -220,11 +209,9 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         }
         return super.onOptionsItemSelected(item);
     }
-
     private void updateNonExistentStock() {
         //  if (SEARCH_SERVICE.isEmpty() == 0) {
     }
-
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
@@ -235,13 +222,11 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                 new String[]{"1"},
                 null);
     }
-
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mCursorAdapter.swapCursor(data);
         mCursor = data;
     }
-
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mCursorAdapter.swapCursor(null);

@@ -15,25 +15,23 @@
             android:layout_height="wrap_content"
             android:background="#aaDEDFDE"
             android:orientation="horizontal"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp">
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp">
 
             <ImageView
                 android:id="@+id/widget_img_launcher"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center_vertical"
-                android:src="@mipmap/ic_launcher"
-                android:contentDescription="@string/widget_img_launcher"/>
+                android:contentDescription="@string/widget_img_launcher"
+                android:src="@mipmap/ic_launcher" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:paddingEnd="@dimen/widget_header_padding"
-                android:paddingLeft="@dimen/widget_header_padding"
-                android:paddingRight="@dimen/widget_header_padding"
                 android:paddingStart="@dimen/widget_header_padding"
+                android:paddingEnd="@dimen/widget_header_padding"
                 android:text="@string/widget_header"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/black"

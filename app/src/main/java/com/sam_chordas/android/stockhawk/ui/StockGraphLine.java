@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.sam_chordas.android.stockhawk.R;
+import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.Stock;
 import com.sam_chordas.android.stockhawk.service.StockDataEndpoint;
 import com.sam_chordas.android.stockhawk.service.StocksDeserializer;
@@ -51,7 +52,7 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
         setContentView(R.layout.activity_stock_graph_line);
 
         Intent intent = getIntent();
-        mStockSymbol = intent.getExtras().getString("symbol");
+        mStockSymbol = intent.getExtras().getString(QuoteColumns.SYMBOL);
 
         symbol = (TextView) findViewById(R.id.symbol);
         date = (TextView) findViewById(R.id.date);

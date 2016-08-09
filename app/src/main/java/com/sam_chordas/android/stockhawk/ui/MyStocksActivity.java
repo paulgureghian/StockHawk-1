@@ -92,8 +92,8 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                         Intent intent = new Intent(mContext, StockGraphLine.class);
                         mCursor = mCursorAdapter.getCursor();
                         mCursor.moveToPosition(position);
-                        String symbol = mCursor.getString(mCursor.getColumnIndex("symbol"));
-                        intent.putExtra("symbol", symbol);
+                        String symbol = mCursor.getString(mCursor.getColumnIndex(QuoteColumns.SYMBOL));
+                        intent.putExtra(QuoteColumns.SYMBOL, symbol);
                         mContext.startActivity(intent);
                     }
                 }));
@@ -126,7 +126,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                                     } else {
 
                                         mServiceIntent.putExtra("tag", "add");
-                                        mServiceIntent.putExtra("symbol", input.toString());
+                                        mServiceIntent.putExtra(QuoteColumns.SYMBOL, input.toString());
                                         startService(mServiceIntent);
                                     }
                                 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.gms.gcm.TaskParams;
+import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 
 public class StockIntentService extends IntentService {
 
@@ -21,7 +22,7 @@ public class StockIntentService extends IntentService {
         Bundle args = new Bundle();
 
         if (intent.getStringExtra("tag").equals("add")) {
-            args.putString("symbol", intent.getStringExtra("symbol"));
+            args.putString(QuoteColumns.SYMBOL, intent.getStringExtra(QuoteColumns.SYMBOL));
         }
 
         stockTaskService.onRunTask(new TaskParams(intent.getStringExtra("tag"), args));

@@ -7,8 +7,8 @@
     android:backgroundTint="@android:color/holo_purple"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp">
 
     <TextView
         android:id="@+id/stock_symbol"
@@ -31,8 +31,8 @@
             style="@style/BidPriceTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingEnd="10sp"
             android:paddingStart="10sp"
+            android:paddingEnd="10sp"
             tools:text="1000.00" />
 
         <TextView
@@ -41,8 +41,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/percent_change_pill"
-            android:paddingEnd="3dp"
             android:paddingStart="3dp"
+            android:paddingEnd="3dp"
             tools:text="100%" />
 
     </LinearLayout>

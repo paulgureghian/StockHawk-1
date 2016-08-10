@@ -11,6 +11,7 @@ public class Stock {
     String Adj_Close;
     String Bid_Price;
     String Change;
+    String Percent_Change;
 
     public String getSymbol() {
         return Symbol;
@@ -83,5 +84,13 @@ public class Stock {
     public String getChange() { return  Change; }
 
     public void  setChange (String change) { this.Change = change; }
+
+    public String getPercent_Change() { return Percent_Change;}
+
+    public void setPercent_Change (String percent_change) {this.Percent_Change = percent_change;}
+
+
+
+
 }
 

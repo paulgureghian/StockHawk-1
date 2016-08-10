@@ -34,8 +34,8 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
                 Stock stock = new Stock();
                 stock.setSymbol  (mCursor.getString (mCursor.getColumnIndex(QuoteColumns.SYMBOL)));
                 stock.setBid_Price(mCursor.getString(mCursor.getColumnIndex(QuoteColumns.BIDPRICE)));
+                stock.setPercent_Change(mCursor.getString(mCursor.getColumnIndex(QuoteColumns.PERCENT_CHANGE)));
                 stock.setChange(mCursor.getString(mCursor.getColumnIndex(QuoteColumns.CHANGE)));
-
                 collection.add(stock);
             }
         } else {
@@ -68,8 +68,13 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
         remoteView.setTextViewText(R.id.symbol, collection.get(position).getSymbol());
         remoteView.setTextViewText(R.id.bid_price, collection.get(position).getBid_Price());
         remoteView.setContentDescription(R.id.bid_price,context.getResources().getString(R.string.bid_price)  + collection.get(position).getBid_Price());
+
+        remoteView.setTextViewText(R.id.change,collection.get(position).getPercent_Change());
+        remoteView.setContentDescription(R.id.change, context.getResources().getString(R.string.change) + collection.get(position).getPercent_Change() );
+
         remoteView.setTextViewText(R.id.change, collection.get(position).getChange());
         remoteView.setContentDescription(R.id.change, context.getResources().getString(R.string.change)  + collection.get(position).getChange());
+
         remoteView.setTextColor(R.layout.widget_layout, Color.BLACK);
 
         return remoteView;

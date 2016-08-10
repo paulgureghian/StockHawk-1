@@ -24,7 +24,6 @@ public class StockIntentService extends IntentService {
         if (intent.getStringExtra("tag").equals("add")) {
             args.putString(QuoteColumns.SYMBOL, intent.getStringExtra(QuoteColumns.SYMBOL));
         }
-
         stockTaskService.onRunTask(new TaskParams(intent.getStringExtra("tag"), args));
     }
 }

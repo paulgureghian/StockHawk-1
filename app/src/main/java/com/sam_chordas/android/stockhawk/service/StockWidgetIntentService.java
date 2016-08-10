@@ -12,7 +12,6 @@ public class StockWidgetIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
-
     }
 }
 

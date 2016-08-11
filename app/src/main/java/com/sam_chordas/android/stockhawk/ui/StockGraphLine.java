@@ -42,7 +42,7 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
     java.text.SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
 
     String endDate = simpleDateFormat.format(date1);
-    cal.(Calendar.MONTH, -1);
+  //  cal.add (Calendar.MONTH, -1);
     String startDate = simpleDateFormat.format(cal.getTime());
 
 

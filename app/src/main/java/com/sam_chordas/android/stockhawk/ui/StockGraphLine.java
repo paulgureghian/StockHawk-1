@@ -84,7 +84,7 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
                         listType, new StocksDeserializer()).create()))
                 .build();
         StockDataEndpoint stockDataEndpoint = retrofit.create(StockDataEndpoint.class);
-        String query = "select * from yahoo.finance.historicaldata where symbol='" + mStockSymbol + "' and startDate '" + startDate + "' and endDate ='" + endDate +"'";
+        String query = "select * from yahoo.finance.historicaldata where symbol= '" + mStockSymbol +"' and startDate = '" + startDate + "' and endDate ='" + endDate + "'";
         Call<List<Stock>> call = stockDataEndpoint.getData(query);
         call.enqueue(this);
     }

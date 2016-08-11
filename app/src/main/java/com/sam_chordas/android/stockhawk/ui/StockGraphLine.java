@@ -27,10 +27,30 @@ import com.sam_chordas.android.stockhawk.service.StockDataEndpoint;
 import com.sam_chordas.android.stockhawk.service.StocksDeserializer;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class StockGraphLine extends AppCompatActivity implements Callback<List<Stock>> {
+
+   // String endDate;
+   // String startDate;
+
+    Calendar cal = Calendar.getInstance();
+    Date date1 = cal.getTime();
+    java.text.SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
+
+    String endDate = simpleDateFormat.format(date1);
+    cal.(Calendar.MONTH, -1);
+    String startDate = simpleDateFormat.format(cal.getTime());
+
+
+
+
+
+
+
 
     Context context;
     String mStockSymbol;

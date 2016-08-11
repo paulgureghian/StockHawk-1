@@ -46,6 +46,7 @@ public class StockWidget extends AppWidgetProvider {
 
             for (int appWidgetId : appWidgetIds) {
                 updateAppWidget(context, appWidgetManager, appWidgetId);
+                appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_list);
             }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
         }

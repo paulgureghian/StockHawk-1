@@ -87,6 +87,9 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
         String query = "select * from yahoo.finance.historicaldata where symbol= '" + mStockSymbol +"' and startDate = '" + startDate + "' and endDate ='" + endDate + "'";
         Call<List<Stock>> call = stockDataEndpoint.getData(query);
         call.enqueue(this);
+
+        Log.e("start date", startDate);
+        Log.e("end date", endDate);
     }
     @Override
     public void onResponse(Call<List<Stock>> call, Response<List<Stock>> response) {
@@ -125,6 +128,7 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
 
         for (int i = 0; i < items.size(); i++) {
             xVals.add(i, items.get(i).getDate());
+            Log.e("date added", items.get(i).getDate());
             yVals.add(new Entry(Float.valueOf(items.get(i).getClose()), i));
         }
         LineDataSet dataSet = new LineDataSet(yVals, mStockSymbol);

@@ -34,23 +34,8 @@ import java.util.List;
 
 public class StockGraphLine extends AppCompatActivity implements Callback<List<Stock>> {
 
-   // String endDate;
-   // String startDate;
-
-    Calendar cal = Calendar.getInstance();
-    Date date1 = cal.getTime();
-    java.text.SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
-
-    String endDate = simpleDateFormat.format(date1);
-  //  cal.add (Calendar.MONTH, -1);
-    String startDate = simpleDateFormat.format(cal.getTime());
-
-
-
-
-
-
-
+    String endDate;
+    String startDate;
 
     Context context;
     String mStockSymbol;
@@ -74,6 +59,13 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
         Intent intent = getIntent();
         mStockSymbol = intent.getExtras().getString(QuoteColumns.SYMBOL);
 
+        Calendar cal = Calendar.getInstance();
+        Date date1 = cal.getTime();
+        java.text.SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        endDate = simpleDateFormat.format(date1);
+        cal.add(Calendar.MONTH, -1);
+        startDate = simpleDateFormat.format(cal.getTime());
+
         symbol = (TextView) findViewById(R.id.symbol);
         date = (TextView) findViewById(R.id.date);
         open = (TextView) findViewById(R.id.open);
@@ -92,7 +84,7 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
                         listType, new StocksDeserializer()).create()))
                 .build();
         StockDataEndpoint stockDataEndpoint = retrofit.create(StockDataEndpoint.class);
-        String query = "select * from yahoo.finance.historicaldata where symbol='" + mStockSymbol + "' and startDate = '2016-06-09' and endDate = '2016-06-19'";
+        String query = "select * from yahoo.finance.historicaldata where symbol='" + mStockSymbol + "' and startDate '" + startDate + "' and endDate ='" + endDate +"'";
         Call<List<Stock>> call = stockDataEndpoint.getData(query);
         call.enqueue(this);
     }

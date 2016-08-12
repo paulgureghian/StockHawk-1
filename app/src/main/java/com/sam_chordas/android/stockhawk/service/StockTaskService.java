@@ -41,7 +41,14 @@ public class StockTaskService extends GcmTaskService {
                 .url(url)
                 .build();
         Response response = client.newCall(request).execute();
+
+        Log.e("Response", response.body().string());
+
         return response.body().string();
+
+
+
+
     }
     @Override
     public int onRunTask(TaskParams params) {

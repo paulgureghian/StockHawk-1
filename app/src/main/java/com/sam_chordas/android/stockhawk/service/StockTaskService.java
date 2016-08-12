@@ -36,19 +36,11 @@ public class StockTaskService extends GcmTaskService {
 
     String fetchData(String url) throws IOException {
         Log.d("URL", url);
-
         Request request = new Request.Builder()
                 .url(url)
                 .build();
         Response response = client.newCall(request).execute();
-
-        Log.e("Response", response.body().string());
-
         return response.body().string();
-
-
-
-
     }
     @Override
     public int onRunTask(TaskParams params) {

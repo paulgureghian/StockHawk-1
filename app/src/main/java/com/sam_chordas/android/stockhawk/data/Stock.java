@@ -77,20 +77,31 @@ public class Stock {
         this.Adj_Close = adj_close;
     }
 
-    public String getBid_Price() {return Bid_Price;}
+    public String getBid_Price() {
+        return Bid_Price;
+    }
 
-    public void setBid_Price(String bid_price) {this.Bid_Price = bid_price;}
+    public void setBid_Price(String bid_price) {
+        this.Bid_Price = bid_price;
+    }
 
-    public String getChange() { return  Change; }
+    public String getChange() {
+        return Change;
+    }
 
-    public void  setChange (String change) { this.Change = change; }
+    public void setChange(String change) {
+        this.Change = change;
+    }
 
-    public String getPercent_Change() { return Percent_Change;}
+    public String getPercent_Change() {
+        return Percent_Change;
+    }
 
-    public void setPercent_Change (String percent_change) {this.Percent_Change = percent_change;}
-
-
-
-
+    public void setPercent_Change(String percent_change) {
+        this.Percent_Change = percent_change;
+    }
 }
+
+
+
 

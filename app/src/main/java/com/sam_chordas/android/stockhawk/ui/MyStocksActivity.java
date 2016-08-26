@@ -62,26 +62,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
-                mServiceIntent = new Intent(MyStocksActivity.this, StockIntentService.class);
-
-
-                mServiceIntent.putExtra("tag", "init");
-                if (isConnected) {
-                    startService(mServiceIntent);
-                } else {
-                    networkToast();
-
-
-                }
-
-            }
-
-        });
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
@@ -94,6 +74,24 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                 activeNetwork.isConnectedOrConnecting();
         setContentView(R.layout.activity_my_stocks);
 
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                mServiceIntent = new Intent(MyStocksActivity.this, StockIntentService.class);
+
+                mServiceIntent.putExtra("tag", "init");
+                if (isConnected) {
+                    startService(mServiceIntent);
+                } else {
+                    networkToast();
+                }
+            mSwipeRefreshLayout.setRefreshing(false);
+
+
+            }
+        });
         mServiceIntent = new Intent(this, StockIntentService.class);
 
         if (savedInstanceState == null) {
@@ -184,48 +182,40 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
             GcmNetworkManager.getInstance(this).schedule(periodicTask);
         }
     }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onInvalidStockSymbol(MessageEvent event) {
         Toast.makeText(getApplicationContext(), mContext.getResources().getString(R.string.invalid_stock_symbol), Toast.LENGTH_LONG).show();
     }
-
     @Override
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }
-
     @Override
     public void onStop() {
         EventBus.getDefault().unregister(this);
         super.onStop();
     }
-
     @Override
     public void onResume() {
         super.onResume();
         getLoaderManager().restartLoader(CURSOR_LOADER_ID, null, this);
     }
-
     public void networkToast() {
         Toast.makeText(mContext, getString(R.string.network_toast), Toast.LENGTH_SHORT).show();
     }
-
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.my_stocks, menu);
         restoreActionBar();
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -241,11 +231,9 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         }
         return super.onOptionsItemSelected(item);
     }
-
     private void updateNonExistentStock() {
         //  if (SEARCH_SERVICE.isEmpty() == 0) {
     }
-
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
@@ -256,7 +244,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                 new String[]{"1"},
                 null);
     }
-
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mCursorAdapter.swapCursor(data);
@@ -272,7 +259,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
 
         DatabaseUtils.dumpCursor(data);
     }
-
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mCursorAdapter.swapCursor(null);

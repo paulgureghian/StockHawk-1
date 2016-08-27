@@ -8,6 +8,8 @@ import android.util.Log;
 import com.google.android.gms.gcm.TaskParams;
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 
+import org.greenrobot.eventbus.EventBus;
+
 public class StockIntentService extends IntentService {
 
     public StockIntentService() {

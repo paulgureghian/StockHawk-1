@@ -13,6 +13,7 @@ import com.google.android.gms.gcm.GcmTaskService;
 import com.google.android.gms.gcm.TaskParams;
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
+import com.sam_chordas.android.stockhawk.rest.MessageEvent;
 import com.sam_chordas.android.stockhawk.rest.Utils;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -21,7 +22,7 @@ import com.squareup.okhttp.Response;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-
+import org.greenrobot.eventbus.EventBus;
 public class StockTaskService extends GcmTaskService {
     private String LOG_TAG = StockTaskService.class.getSimpleName();
     private OkHttpClient client = new OkHttpClient();
@@ -121,6 +122,7 @@ public class StockTaskService extends GcmTaskService {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                EventBus.getDefault().post(new MessageEvent("update complete"));
             }
         }
         return result;

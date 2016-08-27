@@ -229,6 +229,25 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
             Utils.showPercent = !Utils.showPercent;
             this.getContentResolver().notifyChange(QuoteProvider.Quotes.CONTENT_URI, null);
         }
+
+        if (id == R.id.menu_refresh) {
+
+            mServiceIntent = new Intent(MyStocksActivity.this, StockIntentService.class);
+
+            mServiceIntent.putExtra("tag", "init");
+            if (isConnected) {
+                startService(mServiceIntent);
+            } else {
+                networkToast();
+            }
+            mSwipeRefreshLayout.setRefreshing(false);
+
+
+
+
+        }
+
+
         return super.onOptionsItemSelected(item);
     }
     private void updateNonExistentStock() {

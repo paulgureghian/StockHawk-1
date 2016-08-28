@@ -21,4 +21,5 @@
     <string name="no_connection_made">No connection made</string>
     <string name="nope">Nope</string>
     <string name="action_refresh">Refresh</string>
+    <string name="refresh_complete">Refresh Complete</string>
 </resources>

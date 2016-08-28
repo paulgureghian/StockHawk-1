@@ -32,6 +32,7 @@ import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 import com.sam_chordas.android.stockhawk.rest.MessageEvent;
 import com.sam_chordas.android.stockhawk.rest.QuoteCursorAdapter;
 import com.sam_chordas.android.stockhawk.rest.RecyclerViewItemClickListener;
+import com.sam_chordas.android.stockhawk.rest.RefreshUpdaterMessage;
 import com.sam_chordas.android.stockhawk.rest.Utils;
 import com.sam_chordas.android.stockhawk.service.StockIntentService;
 import com.sam_chordas.android.stockhawk.service.StockTaskService;
@@ -87,7 +88,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                 } else {
                     networkToast();
                 }
-
 
 
             }
@@ -183,7 +183,16 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         }
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onInvalidStockSymbol(MessageEvent event) {
+            public void onRefreshComplete (RefreshUpdaterMessage event) {
+            mSwipeRefreshLayout.setRefreshing(false);
+            Toast.makeText(getApplicationContext(),mContext.getResources().getString(R.string.refresh_complete), Toast.LENGTH_LONG).show();
+        }
+
+
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onInvalidStockSymbol (MessageEvent event ) {
         Toast.makeText(getApplicationContext(), mContext.getResources().getString(R.string.invalid_stock_symbol), Toast.LENGTH_LONG).show();
     }
     @Override

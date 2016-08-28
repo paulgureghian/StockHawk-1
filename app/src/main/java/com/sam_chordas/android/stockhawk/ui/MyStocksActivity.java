@@ -88,8 +88,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                 } else {
                     networkToast();
                 }
-
-
             }
         });
         mServiceIntent = new Intent(this, StockIntentService.class);
@@ -187,10 +185,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
             mSwipeRefreshLayout.setRefreshing(false);
             Toast.makeText(getApplicationContext(),mContext.getResources().getString(R.string.refresh_complete), Toast.LENGTH_LONG).show();
         }
-
-
-
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onInvalidStockSymbol (MessageEvent event ) {
         Toast.makeText(getApplicationContext(), mContext.getResources().getString(R.string.invalid_stock_symbol), Toast.LENGTH_LONG).show();
@@ -238,7 +232,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
             Utils.showPercent = !Utils.showPercent;
             this.getContentResolver().notifyChange(QuoteProvider.Quotes.CONTENT_URI, null);
         }
-
         if (id == R.id.menu_refresh) {
 
             mServiceIntent = new Intent(MyStocksActivity.this, StockIntentService.class);
@@ -249,14 +242,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
             } else {
                 networkToast();
             }
-
-
-
-
-
         }
-
-
         return super.onOptionsItemSelected(item);
     }
     private void updateNonExistentStock() {

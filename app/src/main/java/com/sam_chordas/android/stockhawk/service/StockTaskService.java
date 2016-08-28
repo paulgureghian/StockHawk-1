@@ -22,13 +22,16 @@ import com.squareup.okhttp.Response;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+
 import org.greenrobot.eventbus.EventBus;
+
 public class StockTaskService extends GcmTaskService {
     private String LOG_TAG = StockTaskService.class.getSimpleName();
     private OkHttpClient client = new OkHttpClient();
     private Context mContext;
     private StringBuilder mStoredSymbols = new StringBuilder();
     private boolean isUpdate;
+
     public StockTaskService() {
     }
     public StockTaskService(Context context) {
@@ -54,6 +57,7 @@ public class StockTaskService extends GcmTaskService {
             urlStringBuilder.append("https://query.yahooapis.com/v1/public/yql?q=");
             urlStringBuilder.append(URLEncoder.encode("select * from yahoo.finance.quotes where symbol "
                     + "in (", "UTF-8"));
+
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -122,9 +126,10 @@ public class StockTaskService extends GcmTaskService {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-                EventBus.getDefault().post(new MessageEvent("update complete"));
             }
         }
+        EventBus.getDefault().post(new MessageEvent());
+
         return result;
     }
 }

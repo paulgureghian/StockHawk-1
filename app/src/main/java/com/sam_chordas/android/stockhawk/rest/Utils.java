@@ -46,7 +46,7 @@ public class Utils {
         } catch (NumberFormatException nfe) {
             Log.e(LOG_TAG, "Invalid stock symbol" + nfe.toString());
             nfe.printStackTrace();
-            EventBus.getDefault().post(new MessageEvent("hi"));
+            EventBus.getDefault().post(new MessageEvent());
         }
         return batchOperations;
     }

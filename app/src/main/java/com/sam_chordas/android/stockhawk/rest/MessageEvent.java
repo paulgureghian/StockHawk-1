@@ -7,7 +7,7 @@ public class MessageEvent {
 
     public final String message;
 
-    public MessageEvent(String message) {
+    public MessageEvent() {
         this.message = message;
     }
 

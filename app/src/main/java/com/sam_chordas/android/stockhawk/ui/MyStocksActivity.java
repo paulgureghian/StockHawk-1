@@ -240,7 +240,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
             } else {
                 networkToast();
             }
-            mSwipeRefreshLayout.setRefreshing(false);
+
 
 
 

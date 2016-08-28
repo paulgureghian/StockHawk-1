@@ -25,6 +25,7 @@ import java.net.URLEncoder;
 
 import org.greenrobot.eventbus.EventBus;
 
+
 public class StockTaskService extends GcmTaskService {
     private String LOG_TAG = StockTaskService.class.getSimpleName();
     private OkHttpClient client = new OkHttpClient();
@@ -128,7 +129,7 @@ public class StockTaskService extends GcmTaskService {
                 e.printStackTrace();
             }
         }
-        EventBus.getDefault().post(new MessageEvent());
+    //    EventBus.getDefault().post(new MessageEvent());
 
         return result;
     }

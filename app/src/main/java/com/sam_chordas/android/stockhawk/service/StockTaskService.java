@@ -13,7 +13,8 @@ import com.google.android.gms.gcm.GcmTaskService;
 import com.google.android.gms.gcm.TaskParams;
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
-import com.sam_chordas.android.stockhawk.rest.MessageEvent;
+
+import com.sam_chordas.android.stockhawk.rest.RefreshUpdaterMessage;
 import com.sam_chordas.android.stockhawk.rest.Utils;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -129,7 +130,7 @@ public class StockTaskService extends GcmTaskService {
                 e.printStackTrace();
             }
         }
-    //    EventBus.getDefault().post(new MessageEvent());
+        EventBus.getDefault().post(new RefreshUpdaterMessage());
 
         return result;
     }

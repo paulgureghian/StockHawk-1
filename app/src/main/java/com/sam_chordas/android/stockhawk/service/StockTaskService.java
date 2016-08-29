@@ -15,6 +15,7 @@ import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 
 import com.sam_chordas.android.stockhawk.rest.RefreshUpdaterMessage;
+import com.sam_chordas.android.stockhawk.rest.StockAdded;
 import com.sam_chordas.android.stockhawk.rest.Utils;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -93,12 +94,21 @@ public class StockTaskService extends GcmTaskService {
         } else if (params.getTag().equals("add")) {
             isUpdate = false;
 
+
+
+
+
+
             String stockInput = params.getExtras().getString(QuoteColumns.SYMBOL);
             try {
                 urlStringBuilder.append(URLEncoder.encode("\"" + stockInput + "\")", "UTF-8"));
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
+
+
+
+
         }
         urlStringBuilder.append("&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables."
                 + "org%2Falltableswithkeys&callback=");
@@ -128,7 +138,13 @@ public class StockTaskService extends GcmTaskService {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }else {
+
+            EventBus.getDefault().post(new StockAdded());
         }
+
+
+
         EventBus.getDefault().post(new RefreshUpdaterMessage());
 
         return result;

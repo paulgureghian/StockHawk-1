@@ -129,7 +129,15 @@ public class StockTaskService extends GcmTaskService {
                         contentValues.put(QuoteColumns.ISCURRENT, 0);
                         mContext.getContentResolver().update(QuoteProvider.Quotes.CONTENT_URI, contentValues,
                                 null, null);
+
+
+                    }else {
+                        EventBus.getDefault().post(new StockAdded());
+
                     }
+
+
+
                     mContext.getContentResolver().applyBatch(QuoteProvider.AUTHORITY,
                             Utils.quoteJsonToContentVals(getResponse));
                 } catch (RemoteException | OperationApplicationException e) {
@@ -138,10 +146,10 @@ public class StockTaskService extends GcmTaskService {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else {
-
-            EventBus.getDefault().post(new StockAdded());
         }
+
+
+
 
 
 

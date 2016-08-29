@@ -1,5 +1,6 @@
 package com.sam_chordas.android.stockhawk.service;
 
+import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.OperationApplicationException;
@@ -24,6 +25,7 @@ import com.squareup.okhttp.Response;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -36,6 +38,7 @@ public class StockTaskService extends GcmTaskService {
 
     public StockTaskService() {
     }
+
     public StockTaskService(Context context) {
         mContext = context;
     }
@@ -48,6 +51,7 @@ public class StockTaskService extends GcmTaskService {
         Response response = client.newCall(request).execute();
         return response.body().string();
     }
+
     @Override
     public int onRunTask(TaskParams params) {
         Cursor initQueryCursor;
@@ -95,10 +99,6 @@ public class StockTaskService extends GcmTaskService {
             isUpdate = false;
 
 
-
-
-
-
             String stockInput = params.getExtras().getString(QuoteColumns.SYMBOL);
             try {
                 urlStringBuilder.append(URLEncoder.encode("\"" + stockInput + "\")", "UTF-8"));
@@ -107,14 +107,12 @@ public class StockTaskService extends GcmTaskService {
             }
 
 
-
-
         }
         urlStringBuilder.append("&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables."
                 + "org%2Falltableswithkeys&callback=");
 
         String urlString;
-        String getResponse;
+        String getResponse = null;
         int result = GcmNetworkManager.RESULT_FAILURE;
 
         if (urlStringBuilder != null) {
@@ -131,9 +129,6 @@ public class StockTaskService extends GcmTaskService {
                                 null, null);
 
 
-                    }else {
-                        EventBus.getDefault().post(new StockAdded());
-
                     }
 
 
@@ -146,6 +141,16 @@ public class StockTaskService extends GcmTaskService {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+
+        ArrayList<ContentProvider> response = Utils.quoteJsonToContentVals(getResponse);
+        if (response.isEmpty()){
+
+
+        }else {
+
+            EventBus.getDefault().post(new StockAdded());
+
         }
 
 

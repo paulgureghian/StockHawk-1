@@ -70,10 +70,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
-
-
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
@@ -88,6 +84,8 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+
             @Override
             public void onRefresh() {
 
@@ -100,15 +98,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                     networkToast();
                 }
             }
-
-
-            @Override
-            public boolean onPrepareOptionsMenu (Menu menu) {
-
-            miActionProgressItem = menu.findItem(R.id.miActionProgress);
-            ProgressBar v = (ProgressBar) MenuItemCompat.getActionView(miActionProgressItem);
-             return super.onPrepareOptionsMenu(menu);
-        }
 
 
         });
@@ -201,7 +190,20 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
 
             GcmNetworkManager.getInstance(this).schedule(periodicTask);
         }
+
     }
+
+        @Override
+        public boolean onPrepareOptionsMenu(Menu menu){
+
+            miActionProgressItem = menu.findItem(R.id.miActionProgress);
+            ProgressBar v = (ProgressBar) MenuItemCompat.getActionView(miActionProgressItem);
+            return super.onPrepareOptionsMenu(menu);
+
+
+        }
+
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onStockAdded(StockAdded event) {
@@ -216,6 +218,8 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRefreshComplete(RefreshUpdaterMessage event) {
         mSwipeRefreshLayout.setRefreshing(false);
+        miActionProgressItem.setVisible(false);
+
         Toast.makeText(getApplicationContext(), mContext.getResources().getString(R.string.refresh_complete), Toast.LENGTH_LONG).show();
     }
 
@@ -280,7 +284,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
             mServiceIntent.putExtra("tag", "init");
             if (isConnected) {
                 startService(mServiceIntent);
-
+                    miActionProgressItem.setVisible(true);
 
             } else {
                 networkToast();

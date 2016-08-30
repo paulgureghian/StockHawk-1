@@ -12,6 +12,7 @@ import android.database.DatabaseUtils;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
@@ -51,11 +52,8 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 public class MyStocksActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
-
-
     public ProgressBar mProgress;
     MenuItem miActionProgressItem;
-    private Handler mHandler = new Handler();
 
     private CharSequence mTitle;
     private Intent mServiceIntent;
@@ -72,6 +70,10 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
+
+
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
@@ -83,13 +85,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
         setContentView(R.layout.activity_my_stocks);
-
-        miActionProgressItem = menu.
-
-
-
-
-
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -105,6 +100,17 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                     networkToast();
                 }
             }
+
+
+            @Override
+            public boolean onPrepareOptionsMenu (Menu menu) {
+
+            miActionProgressItem = menu.findItem(R.id.miActionProgress);
+            ProgressBar v = (ProgressBar) MenuItemCompat.getActionView(miActionProgressItem);
+             return super.onPrepareOptionsMenu(menu);
+        }
+
+
         });
         mServiceIntent = new Intent(this, StockIntentService.class);
 
@@ -274,7 +280,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
             mServiceIntent.putExtra("tag", "init");
             if (isConnected) {
                 startService(mServiceIntent);
-                mProgress.setVisibility();
+
 
             } else {
                 networkToast();

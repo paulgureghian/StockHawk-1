@@ -36,6 +36,7 @@ public class StockTaskService extends GcmTaskService {
     private StringBuilder mStoredSymbols = new StringBuilder();
     private boolean isUpdate;
     public String getResponse;
+
     public StockTaskService() {
     }
 
@@ -98,15 +99,12 @@ public class StockTaskService extends GcmTaskService {
         } else if (params.getTag().equals("add")) {
             isUpdate = false;
 
-
             String stockInput = params.getExtras().getString(QuoteColumns.SYMBOL);
             try {
                 urlStringBuilder.append(URLEncoder.encode("\"" + stockInput + "\")", "UTF-8"));
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-
-
         }
         urlStringBuilder.append("&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables."
                 + "org%2Falltableswithkeys&callback=");
@@ -127,12 +125,7 @@ public class StockTaskService extends GcmTaskService {
                         contentValues.put(QuoteColumns.ISCURRENT, 0);
                         mContext.getContentResolver().update(QuoteProvider.Quotes.CONTENT_URI, contentValues,
                                 null, null);
-
-
                     }
-
-
-
                     mContext.getContentResolver().applyBatch(QuoteProvider.AUTHORITY,
                             Utils.quoteJsonToContentVals(getResponse));
                 } catch (RemoteException | OperationApplicationException e) {
@@ -142,21 +135,11 @@ public class StockTaskService extends GcmTaskService {
                 e.printStackTrace();
             }
         }
-
         ArrayList<ContentProvider> response = Utils.quoteJsonToContentVals(getResponse);
         if ((!response.isEmpty()) && (params.getTag().equals("add"))) {
 
-
-
-
             EventBus.getDefault().post(new StockAdded());
-
         }
-
-
-
-
-
         EventBus.getDefault().post(new RefreshUpdaterMessage());
 
         return result;

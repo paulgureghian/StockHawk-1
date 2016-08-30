@@ -24,4 +24,5 @@
     <string name="refresh_complete">Refresh Complete</string>
     <string name="stock_removed">Stock Removed</string>
     <string name="stock_added">Stock Added</string>
+    <string name="updating">Updating</string>
 </resources>

@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
@@ -23,6 +24,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -50,6 +52,11 @@ import org.greenrobot.eventbus.ThreadMode;
 
 public class MyStocksActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    private static final int PROGRESS = 0x1;
+    private ProgressBar mProgress;
+    private int mProgressStatus = 0;
+    private Handler mHandler = new Handler();
+
     private CharSequence mTitle;
     private Intent mServiceIntent;
     private ItemTouchHelper mItemTouchHelper;
@@ -76,6 +83,25 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
         setContentView(R.layout.activity_my_stocks);
+
+        mProgress = (ProgressBar) findViewById(R.id.progress_bar);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (mProgressStatus < 100) {
+                   // mProgressStatus = doWork();
+
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mProgress.setProgress(mProgressStatus);
+                        }
+                    });
+
+                }
+            }
+        }).start();
+
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -183,55 +209,63 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         }
     }
 
-    @Subscribe (threadMode = ThreadMode.MAIN)
-    public void onStockAdded (StockAdded event) {
-        Toast.makeText(getApplicationContext(),mContext.getResources().getString(R.string.stock_added),Toast.LENGTH_LONG).show();
-
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onStockAdded(StockAdded event) {
+        Toast.makeText(getApplicationContext(), mContext.getResources().getString(R.string.stock_added), Toast.LENGTH_LONG).show();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onStockRemoved(StockRemover event) {
         Toast.makeText(getApplicationContext(), mContext.getResources().getString(R.string.stock_removed), Toast.LENGTH_LONG).show();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRefreshComplete(RefreshUpdaterMessage event) {
         mSwipeRefreshLayout.setRefreshing(false);
         Toast.makeText(getApplicationContext(), mContext.getResources().getString(R.string.refresh_complete), Toast.LENGTH_LONG).show();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onInvalidStockSymbol(MessageEvent event) {
         Toast.makeText(getApplicationContext(), mContext.getResources().getString(R.string.invalid_stock_symbol), Toast.LENGTH_LONG).show();
     }
+
     @Override
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }
+
     @Override
     public void onStop() {
         EventBus.getDefault().unregister(this);
         super.onStop();
     }
+
     @Override
     public void onResume() {
         super.onResume();
         getLoaderManager().restartLoader(CURSOR_LOADER_ID, null, this);
     }
+
     public void networkToast() {
         Toast.makeText(mContext, getString(R.string.network_toast), Toast.LENGTH_SHORT).show();
     }
+
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.my_stocks, menu);
         restoreActionBar();
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -258,9 +292,11 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         }
         return super.onOptionsItemSelected(item);
     }
+
     private void updateNonExistentStock() {
         //  if (SEARCH_SERVICE.isEmpty() == 0) {
     }
+
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
@@ -271,6 +307,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                 new String[]{"1"},
                 null);
     }
+
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mCursorAdapter.swapCursor(data);
@@ -286,6 +323,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
 
         DatabaseUtils.dumpCursor(data);
     }
+
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mCursorAdapter.swapCursor(null);

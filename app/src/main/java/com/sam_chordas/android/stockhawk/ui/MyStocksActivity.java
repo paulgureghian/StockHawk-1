@@ -52,9 +52,9 @@ import org.greenrobot.eventbus.ThreadMode;
 
 public class MyStocksActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private static final int PROGRESS = 0x1;
-    private ProgressBar mProgress;
-    private int mProgressStatus = 0;
+
+    public ProgressBar mProgress;
+    MenuItem miActionProgressItem;
     private Handler mHandler = new Handler();
 
     private CharSequence mTitle;
@@ -84,23 +84,11 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                 activeNetwork.isConnectedOrConnecting();
         setContentView(R.layout.activity_my_stocks);
 
-        mProgress = (ProgressBar) findViewById(R.id.progress_bar);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (mProgressStatus < 100) {
-                   // mProgressStatus = doWork();
+        miActionProgressItem = menu.
 
-                    mHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            mProgress.setProgress(mProgressStatus);
-                        }
-                    });
 
-                }
-            }
-        }).start();
+
+
 
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
@@ -286,6 +274,8 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
             mServiceIntent.putExtra("tag", "init");
             if (isConnected) {
                 startService(mServiceIntent);
+                mProgress.setVisibility();
+
             } else {
                 networkToast();
             }

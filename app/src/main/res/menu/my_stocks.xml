@@ -5,6 +5,14 @@
     tools:context=".MyStocksActivity">
 
     <item
+        android:id="@+id/miActionProgress"
+        android:title="loading"
+        android:visible="false"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        app:actionLayout = "@layout/action_veiw_progress"/>
+
+    <item
         android:id="@+id/menu_refresh"
         android:icon="@drawable/ic_menu_refresh"
         android:title="@string/action_refresh"

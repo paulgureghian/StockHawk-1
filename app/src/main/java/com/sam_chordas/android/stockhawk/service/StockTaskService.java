@@ -35,7 +35,7 @@ public class StockTaskService extends GcmTaskService {
     private Context mContext;
     private StringBuilder mStoredSymbols = new StringBuilder();
     private boolean isUpdate;
-
+    public String getResponse;
     public StockTaskService() {
     }
 
@@ -112,7 +112,7 @@ public class StockTaskService extends GcmTaskService {
                 + "org%2Falltableswithkeys&callback=");
 
         String urlString;
-        String getResponse = null;
+
         int result = GcmNetworkManager.RESULT_FAILURE;
 
         if (urlStringBuilder != null) {
@@ -144,15 +144,14 @@ public class StockTaskService extends GcmTaskService {
         }
 
         ArrayList<ContentProvider> response = Utils.quoteJsonToContentVals(getResponse);
-        if (response.isEmpty()){
+        if ((!response.isEmpty()) && (params.getTag().equals("add"))) {
 
 
-        }else {
+
 
             EventBus.getDefault().post(new StockAdded());
 
         }
-
 
 
 

@@ -85,7 +85,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
-
             @Override
             public void onRefresh() {
 
@@ -98,8 +97,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                     networkToast();
                 }
             }
-
-
         });
         mServiceIntent = new Intent(this, StockIntentService.class);
 
@@ -190,80 +187,61 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
 
             GcmNetworkManager.getInstance(this).schedule(periodicTask);
         }
-
     }
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
 
-        @Override
-        public boolean onPrepareOptionsMenu(Menu menu){
-
-            miActionProgressItem = menu.findItem(R.id.miActionProgress);
-            ProgressBar v = (ProgressBar) MenuItemCompat.getActionView(miActionProgressItem);
-            return super.onPrepareOptionsMenu(menu);
-
-
-        }
-
-
-
+        return super.onPrepareOptionsMenu(menu);
+    }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onStockAdded(StockAdded event) {
         Toast.makeText(getApplicationContext(), mContext.getResources().getString(R.string.stock_added), Toast.LENGTH_LONG).show();
     }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onStockRemoved(StockRemover event) {
         Toast.makeText(getApplicationContext(), mContext.getResources().getString(R.string.stock_removed), Toast.LENGTH_LONG).show();
     }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRefreshComplete(RefreshUpdaterMessage event) {
         mSwipeRefreshLayout.setRefreshing(false);
-        miActionProgressItem.setVisible(false);
+
 
         Toast.makeText(getApplicationContext(), mContext.getResources().getString(R.string.refresh_complete), Toast.LENGTH_LONG).show();
     }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onInvalidStockSymbol(MessageEvent event) {
         Toast.makeText(getApplicationContext(), mContext.getResources().getString(R.string.invalid_stock_symbol), Toast.LENGTH_LONG).show();
     }
-
     @Override
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }
-
     @Override
     public void onStop() {
         EventBus.getDefault().unregister(this);
         super.onStop();
     }
-
     @Override
     public void onResume() {
         super.onResume();
         getLoaderManager().restartLoader(CURSOR_LOADER_ID, null, this);
     }
-
     public void networkToast() {
         Toast.makeText(mContext, getString(R.string.network_toast), Toast.LENGTH_SHORT).show();
     }
-
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.my_stocks, menu);
         restoreActionBar();
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -284,7 +262,8 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
             mServiceIntent.putExtra("tag", "init");
             if (isConnected) {
                 startService(mServiceIntent);
-                    miActionProgressItem.setVisible(true);
+                mSwipeRefreshLayout.setRefreshing(true);
+
 
             } else {
                 networkToast();
@@ -292,11 +271,9 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         }
         return super.onOptionsItemSelected(item);
     }
-
     private void updateNonExistentStock() {
         //  if (SEARCH_SERVICE.isEmpty() == 0) {
     }
-
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
@@ -307,7 +284,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                 new String[]{"1"},
                 null);
     }
-
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mCursorAdapter.swapCursor(data);
@@ -323,7 +299,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
 
         DatabaseUtils.dumpCursor(data);
     }
-
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mCursorAdapter.swapCursor(null);

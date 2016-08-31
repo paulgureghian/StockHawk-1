@@ -141,7 +141,7 @@ public class StockTaskService extends GcmTaskService {
             } catch (IOException e) {
                 e.printStackTrace();
                 EventBus.getDefault().post(new IOException());
-                Log.d(LOG_TAG, "HTTP Error", e);
+                Log.d(LOG_TAG, "HTTP Error: " + e.getMessage());
 
             }
         }

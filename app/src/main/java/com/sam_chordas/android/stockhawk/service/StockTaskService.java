@@ -8,6 +8,8 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.os.RemoteException;
 import android.util.Log;
+import android.widget.Toast;
+
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.GcmTaskService;
 import com.google.android.gms.gcm.TaskParams;
@@ -19,10 +21,12 @@ import com.sam_chordas.android.stockhawk.rest.Utils;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+
 import org.greenrobot.eventbus.EventBus;
 
 public class StockTaskService extends GcmTaskService {
@@ -32,6 +36,7 @@ public class StockTaskService extends GcmTaskService {
     private StringBuilder mStoredSymbols = new StringBuilder();
     private boolean isUpdate;
     public String getResponse;
+
     public StockTaskService() {
     }
 
@@ -120,6 +125,13 @@ public class StockTaskService extends GcmTaskService {
                         contentValues.put(QuoteColumns.ISCURRENT, 0);
                         mContext.getContentResolver().update(QuoteProvider.Quotes.CONTENT_URI, contentValues,
                                 null, null);
+                    } else {
+
+                        ArrayList<ContentProvider> response = Utils.quoteJsonToContentVals(getResponse);
+                        if ((!response.isEmpty()) && (params.getTag().equals("add"))) {
+
+                            EventBus.getDefault().post(new StockAdded());
+                        }
                     }
                     mContext.getContentResolver().applyBatch(QuoteProvider.AUTHORITY,
                             Utils.quoteJsonToContentVals(getResponse));
@@ -128,15 +140,12 @@ public class StockTaskService extends GcmTaskService {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "HTTP Error", Toast.LENGTH_LONG).show();
+                Log.d(LOG_TAG, "HTTP Error", e);
+
             }
         }
-        ArrayList<ContentProvider> response = Utils.quoteJsonToContentVals(getResponse);
-        if ((!response.isEmpty()) && (params.getTag().equals("add"))) {
-
-            EventBus.getDefault().post(new StockAdded());
-        }
-
-        EventBus.getDefault().post(new RefreshUpdaterMessage());
+                EventBus.getDefault().post(new RefreshUpdaterMessage());
 
         return result;
     }

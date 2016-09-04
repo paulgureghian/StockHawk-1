@@ -145,7 +145,13 @@ public class StockTaskService extends GcmTaskService {
 
             }
         }
-                EventBus.getDefault().post(new RefreshUpdaterMessage());
+
+        if (isUpdate == true) {
+
+            EventBus.getDefault().post(new RefreshUpdaterMessage());
+
+
+        }
 
         return result;
     }

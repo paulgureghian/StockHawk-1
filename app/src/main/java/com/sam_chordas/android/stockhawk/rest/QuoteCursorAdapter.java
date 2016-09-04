@@ -102,7 +102,7 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
         }
         @Override
         public void onItemClear() {
-            itemView.setBackgroundColor(0);
+           // itemView.setBackgroundColor(0);
         }
         @Override
         public void onClick(View v) {

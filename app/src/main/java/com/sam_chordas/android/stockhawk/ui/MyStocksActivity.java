@@ -277,7 +277,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
 
             mServiceIntent = new Intent(MyStocksActivity.this, StockIntentService.class);
 
-            mServiceIntent.putExtra("tag", "init");
+            mServiceIntent.putExtra("tag", "update");
             if (isConnected) {
                 startService(mServiceIntent);
                 mSwipeRefreshLayout.setRefreshing(true);

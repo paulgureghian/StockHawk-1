@@ -38,6 +38,7 @@ public class StockTaskService extends GcmTaskService {
     public String getResponse;
 
     public StockTaskService() {
+
     }
 
     public StockTaskService(Context context) {
@@ -142,18 +143,13 @@ public class StockTaskService extends GcmTaskService {
                 e.printStackTrace();
                 EventBus.getDefault().post(new IOException());
                 Log.d(LOG_TAG, "HTTP Error: " + e.getMessage());
-
             }
         }
 
-
         if (params.getTag().equals("update")) {
-
-
 
             EventBus.getDefault().post(new RefreshUpdaterMessage());
         }
-
         return result;
     }
 }

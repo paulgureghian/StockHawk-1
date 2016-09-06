@@ -30,6 +30,7 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
         super(context, cursor);
         mContext = context;
     }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         robotoLight = Typeface.createFromAsset(mContext.getAssets(), "fonts/Roboto-Light.ttf");
@@ -38,6 +39,7 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
         ViewHolder vh = new ViewHolder(itemView);
         return vh;
     }
+
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final Cursor cursor) {
         viewHolder.symbol.setText(cursor.getString(cursor.getColumnIndex(QuoteColumns.SYMBOL)));
@@ -46,19 +48,19 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
         int sdk = Build.VERSION.SDK_INT;
         if (cursor.getInt(cursor.getColumnIndex(QuoteColumns.ISUP)) == 1) {
             if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
-                viewHolder.change.setBackgroundDrawable(
-                        mContext.getResources().getDrawable(R.drawable.percent_change_pill_green));
+                viewHolder.change.setBackground(
+                        mContext.getDrawable(R.drawable.percent_change_pill_green));
             } else {
                 viewHolder.change.setBackground(
-                        mContext.getResources().getDrawable(R.drawable.percent_change_pill_green));
+                        mContext.getDrawable(R.drawable.percent_change_pill_green));
             }
         } else {
             if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
-                viewHolder.change.setBackgroundDrawable(
-                        mContext.getResources().getDrawable(R.drawable.percent_change_pill_red));
+                viewHolder.change.setBackground(
+                        mContext.getDrawable(R.drawable.percent_change_pill_red));
             } else {
                 viewHolder.change.setBackground(
-                        mContext.getResources().getDrawable(R.drawable.percent_change_pill_red));
+                        mContext.getDrawable(R.drawable.percent_change_pill_red));
             }
         }
         if (Utils.showPercent) {
@@ -69,6 +71,7 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
             viewHolder.change.setContentDescription(mContext.getResources().getString(R.string.change) + cursor.getString(cursor.getColumnIndex(QuoteColumns.CHANGE)));
         }
     }
+
     @Override
     public void onItemDismiss(int position) {
         Cursor c = getCursor();
@@ -78,6 +81,7 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
         notifyItemRemoved(position);
         EventBus.getDefault().post(new StockRemover());
     }
+
     @Override
     public int getItemCount() {
         return super.getItemCount();
@@ -96,14 +100,17 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
             bidPrice = (TextView) itemView.findViewById(R.id.bid_price);
             change = (TextView) itemView.findViewById(R.id.change);
         }
+
         @Override
         public void onItemSelected() {
             itemView.setBackgroundColor(Color.LTGRAY);
         }
+
         @Override
         public void onItemClear() {
-           // itemView.setBackgroundColor(0);
+            itemView.setBackground(mContext.getDrawable(R.drawable.md_btn_shape));
         }
+
         @Override
         public void onClick(View v) {
         }

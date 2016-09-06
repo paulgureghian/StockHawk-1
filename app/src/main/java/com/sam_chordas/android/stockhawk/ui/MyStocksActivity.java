@@ -91,7 +91,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
 
                 mServiceIntent = new Intent(MyStocksActivity.this, StockIntentService.class);
 
-                mServiceIntent.putExtra("tag", "init");
+                mServiceIntent.putExtra("tag", "update");
                 if (isConnected) {
                     startService(mServiceIntent);
                 } else {
@@ -110,6 +110,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                 networkToast();
             }
         }
+
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
@@ -198,26 +199,31 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void IOException(IOException event) {
-        Toast.makeText(getApplicationContext(), "HTTP Error", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "HTTP Error", Toast.LENGTH_SHORT).show();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onStockAdded(StockAdded event) {
-        Toast.makeText(getApplicationContext(), mContext.getResources().getString(R.string.stock_added), Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), mContext.getResources().getString(R.string.stock_added), Toast.LENGTH_SHORT).show();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onStockRemoved(StockRemover event) {
-        Toast.makeText(getApplicationContext(), mContext.getResources().getString(R.string.stock_removed), Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), mContext.getResources().getString(R.string.stock_removed), Toast.LENGTH_SHORT).show();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRefreshComplete(RefreshUpdaterMessage event) {
         mSwipeRefreshLayout.setRefreshing(false);
 
-        Toast.makeText(getApplicationContext(), mContext.getResources().getString(R.string.refresh_complete), Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), mContext.getResources().getString(R.string.refresh_complete), Toast.LENGTH_SHORT).show();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onInvalidStockSymbol(MessageEvent event) {
-        Toast.makeText(getApplicationContext(), mContext.getResources().getString(R.string.invalid_stock_symbol), Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), mContext.getResources().getString(R.string.invalid_stock_symbol), Toast.LENGTH_SHORT).show();
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -275,7 +281,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
             if (isConnected) {
                 startService(mServiceIntent);
                 mSwipeRefreshLayout.setRefreshing(true);
-
 
             } else {
                 networkToast();

@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import org.greenrobot.eventbus.EventBus;
 
 public class StockTaskService extends GcmTaskService {
+
     private String LOG_TAG = StockTaskService.class.getSimpleName();
     private OkHttpClient client = new OkHttpClient();
     private Context mContext;
@@ -74,6 +75,9 @@ public class StockTaskService extends GcmTaskService {
                     new String[]{"Distinct " + QuoteColumns.SYMBOL}, null,
                     null, null);
             if (initQueryCursor.getCount() == 0 || initQueryCursor == null) {
+
+                        Log.e("get_count", String.valueOf(initQueryCursor.getCount()));
+
 
                 try {
                     urlStringBuilder.append(

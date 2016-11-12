@@ -1,4 +1,4 @@
-package com.sam_chordas.android.stockhawk.data;
+package com.sam_chordas.android.stockhawk.Data;
 
 import android.content.Context;
 import android.content.Intent;

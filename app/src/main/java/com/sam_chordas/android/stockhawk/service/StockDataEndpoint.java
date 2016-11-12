@@ -1,7 +1,6 @@
-package com.sam_chordas.android.stockhawk.service;
+package com.sam_chordas.android.stockhawk.Service;
 
-
-import com.sam_chordas.android.stockhawk.data.Stock;
+import com.sam_chordas.android.stockhawk.Data.Stock;
 
 import java.util.List;
 
@@ -14,6 +13,5 @@ public interface StockDataEndpoint {
     @GET("v1/public/yql?&format=json&diagnostics=true&env=store://datatables.org/alltableswithkeys&callback=")
     Call<List<Stock>> getData(
             @Query("q") String symbol);
-
-
 }
+

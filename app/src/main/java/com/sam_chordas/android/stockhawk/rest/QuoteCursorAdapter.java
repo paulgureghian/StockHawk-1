@@ -1,4 +1,4 @@
-package com.sam_chordas.android.stockhawk.rest;
+package com.sam_chordas.android.stockhawk.Rest;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -12,10 +12,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sam_chordas.android.stockhawk.R;
-import com.sam_chordas.android.stockhawk.data.QuoteColumns;
-import com.sam_chordas.android.stockhawk.data.QuoteProvider;
-import com.sam_chordas.android.stockhawk.touch_helper.ItemTouchHelperAdapter;
-import com.sam_chordas.android.stockhawk.touch_helper.ItemTouchHelperViewHolder;
+import com.sam_chordas.android.stockhawk.Data.QuoteColumns;
+import com.sam_chordas.android.stockhawk.Data.QuoteProvider;
+import com.sam_chordas.android.stockhawk.TouchHelper.ItemTouchHelperAdapter;
+import com.sam_chordas.android.stockhawk.TouchHelper.ItemTouchHelperViewHolder;
 
 import org.greenrobot.eventbus.EventBus;
 

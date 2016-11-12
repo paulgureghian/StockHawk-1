@@ -1,4 +1,4 @@
-package com.sam_chordas.android.stockhawk.ui;
+package com.sam_chordas.android.stockhawk.UI;
 
 import android.annotation.TargetApi;
 import android.app.PendingIntent;
@@ -10,7 +10,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 import com.sam_chordas.android.stockhawk.R;
-import com.sam_chordas.android.stockhawk.service.WidgetService;
+import com.sam_chordas.android.stockhawk.Service.WidgetService;
 
 public class StockWidget extends AppWidgetProvider {
 

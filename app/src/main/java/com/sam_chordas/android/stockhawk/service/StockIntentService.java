@@ -1,4 +1,4 @@
-package com.sam_chordas.android.stockhawk.service;
+package com.sam_chordas.android.stockhawk.Service;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.gms.gcm.TaskParams;
-import com.sam_chordas.android.stockhawk.data.QuoteColumns;
-
-import org.greenrobot.eventbus.EventBus;
+import com.sam_chordas.android.stockhawk.Data.QuoteColumns;
 
 public class StockIntentService extends IntentService {
 

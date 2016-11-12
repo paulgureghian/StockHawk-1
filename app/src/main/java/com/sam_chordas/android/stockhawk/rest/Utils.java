@@ -1,9 +1,9 @@
-package com.sam_chordas.android.stockhawk.rest;
+package com.sam_chordas.android.stockhawk.Rest;
 
 import android.content.ContentProviderOperation;
 import android.util.Log;
-import com.sam_chordas.android.stockhawk.data.QuoteColumns;
-import com.sam_chordas.android.stockhawk.data.QuoteProvider;
+import com.sam_chordas.android.stockhawk.Data.QuoteColumns;
+import com.sam_chordas.android.stockhawk.Data.QuoteProvider;
 import java.util.ArrayList;
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;

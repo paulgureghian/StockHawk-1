@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.MyStocksActivity"
+            android:name=".UI.MyStocksActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,7 +30,7 @@
         </activity>
 
         <service
-            android:name=".service.StockTaskService"
+            android:name=".Service.StockTaskService"
             android:exported="true"
             android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE">
             <intent-filter>
@@ -39,20 +39,20 @@
         </service>
 
         <provider
-            android:name=".data.generated.QuoteProvider"
-            android:authorities="com.sam_chordas.android.stockhawk.data.QuoteProvider"
+            android:name=".Data.generated.QuoteProvider"
+            android:authorities="com.sam_chordas.android.stockhawk.Data.QuoteProvider"
             android:exported="true" />
 
         <activity
-            android:name=".ui.StockGraphLine"
+            android:name=".UI.StockGraphLine"
             android:label="@string/title_activity_setting">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.sam_chordas.android.stockhawk.ui.MyStocksActivity" />
+                android:value="com.sam_chordas.android.stockhawk.UI.MyStocksActivity" />
         </activity>
 
         <receiver
-            android:name=".ui.StockWidget"
+            android:name=".UI.StockWidget"
             android:label="@string/appwidget_text">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -64,16 +64,16 @@
         </receiver>
 
         <service
-            android:name=".service.WidgetService"
+            android:name=".Service.WidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
         <service
-            android:name=".service.StockWidgetIntentService"
+            android:name=".Service.StockWidgetIntentService"
             android:exported="true">
 
     </service>
 
         <service
-            android:name=".service.StockIntentService"
+            android:name=".Service.StockIntentService"
             android:exported="true">
 
     </service>

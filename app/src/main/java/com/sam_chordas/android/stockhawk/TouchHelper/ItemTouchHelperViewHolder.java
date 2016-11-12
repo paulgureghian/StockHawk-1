@@ -1,4 +1,4 @@
-package com.sam_chordas.android.stockhawk.touch_helper;
+package com.sam_chordas.android.stockhawk.TouchHelper;
 
 
 public interface ItemTouchHelperViewHolder {

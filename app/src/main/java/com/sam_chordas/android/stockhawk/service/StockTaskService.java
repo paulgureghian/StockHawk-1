@@ -1,4 +1,4 @@
-package com.sam_chordas.android.stockhawk.service;
+package com.sam_chordas.android.stockhawk.Service;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -8,16 +8,15 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.os.RemoteException;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.GcmTaskService;
 import com.google.android.gms.gcm.TaskParams;
-import com.sam_chordas.android.stockhawk.data.QuoteColumns;
-import com.sam_chordas.android.stockhawk.data.QuoteProvider;
-import com.sam_chordas.android.stockhawk.rest.RefreshUpdaterMessage;
-import com.sam_chordas.android.stockhawk.rest.StockAdded;
-import com.sam_chordas.android.stockhawk.rest.Utils;
+import com.sam_chordas.android.stockhawk.Data.QuoteColumns;
+import com.sam_chordas.android.stockhawk.Data.QuoteProvider;
+import com.sam_chordas.android.stockhawk.Rest.RefreshUpdaterMessage;
+import com.sam_chordas.android.stockhawk.Rest.StockAdded;
+import com.sam_chordas.android.stockhawk.Rest.Utils;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;

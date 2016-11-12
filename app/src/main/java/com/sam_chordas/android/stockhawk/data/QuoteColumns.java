@@ -1,4 +1,4 @@
-package com.sam_chordas.android.stockhawk.data;
+package com.sam_chordas.android.stockhawk.Data;
 
 import net.simonvt.schematic.annotation.AutoIncrement;
 import net.simonvt.schematic.annotation.ConflictResolutionType;

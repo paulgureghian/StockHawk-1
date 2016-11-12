@@ -1,4 +1,4 @@
-package com.sam_chordas.android.stockhawk.ui;
+package com.sam_chordas.android.stockhawk.UI;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,10 +21,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.sam_chordas.android.stockhawk.R;
-import com.sam_chordas.android.stockhawk.data.QuoteColumns;
-import com.sam_chordas.android.stockhawk.data.Stock;
-import com.sam_chordas.android.stockhawk.service.StockDataEndpoint;
-import com.sam_chordas.android.stockhawk.service.StocksDeserializer;
+import com.sam_chordas.android.stockhawk.Data.QuoteColumns;
+import com.sam_chordas.android.stockhawk.Data.Stock;
+import com.sam_chordas.android.stockhawk.Service.StockDataEndpoint;
+import com.sam_chordas.android.stockhawk.Service.StocksDeserializer;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -107,7 +107,7 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
         }
         if (code == 200) {
 
-            // Toast.makeText(this, "Connection made", Toast.LENGTH_LONG).show();
+             Toast.makeText(this, "Connection made", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, context.getResources().getString(R.string.no_connection_made) + String.valueOf(code),
                     Toast.LENGTH_LONG).show();

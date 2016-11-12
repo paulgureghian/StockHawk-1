@@ -1,11 +1,7 @@
-package com.sam_chordas.android.stockhawk.touch_helper;
+package com.sam_chordas.android.stockhawk.TouchHelper;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-
-import com.sam_chordas.android.stockhawk.rest.StockRemover;
-
-import org.greenrobot.eventbus.EventBus;
 
 public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
     private final ItemTouchHelperAdapter mAdapter;

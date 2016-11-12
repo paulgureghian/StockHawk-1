@@ -74,9 +74,9 @@ public class StockTaskService extends GcmTaskService {
             initQueryCursor = mContext.getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,
                     new String[]{"Distinct " + QuoteColumns.SYMBOL}, null,
                     null, null);
-            if (initQueryCursor.getCount() == 0 || initQueryCursor == null) {
+            if (initQueryCursor != null && initQueryCursor.getCount() > 0) {
 
-                        Log.e("get_count", String.valueOf(initQueryCursor.getCount()));
+                Log.e("get_count", String.valueOf(initQueryCursor.getCount()));
 
 
                 try {

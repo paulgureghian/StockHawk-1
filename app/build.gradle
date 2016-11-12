@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
-
 android {
     compileSdkVersion 24
     buildToolsVersion "23.0.3"
@@ -23,7 +22,6 @@ repositories {
     maven { url "https://jitpack.io" }
 }
 dependencies {
-
     compile 'com.google.android.gms:play-services-gcm:9.4.0'
     compile 'com.squareup.okhttp:okhttp:2.5.0'
     apt     'net.simonvt.schematic:schematic-compiler:0.6.3'

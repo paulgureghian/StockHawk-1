@@ -1,4 +1,4 @@
-package com.sam_chordas.android.stockhawk.UI;
+package com.sam_chordas.android.stockhawk.Activities;
 
 import android.app.LoaderManager;
 import android.appwidget.AppWidgetManager;
@@ -30,14 +30,14 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.Data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.Data.QuoteProvider;
-import com.sam_chordas.android.stockhawk.Rest.IOException;
-import com.sam_chordas.android.stockhawk.Rest.MessageEvent;
-import com.sam_chordas.android.stockhawk.Rest.QuoteCursorAdapter;
-import com.sam_chordas.android.stockhawk.Rest.RecyclerViewItemClickListener;
-import com.sam_chordas.android.stockhawk.Rest.RefreshUpdaterMessage;
-import com.sam_chordas.android.stockhawk.Rest.StockAdded;
-import com.sam_chordas.android.stockhawk.Rest.StockRemover;
-import com.sam_chordas.android.stockhawk.Rest.Utils;
+import com.sam_chordas.android.stockhawk.Utils.IOException;
+import com.sam_chordas.android.stockhawk.Utils.MessageEvent;
+import com.sam_chordas.android.stockhawk.Utils.QuoteCursorAdapter;
+import com.sam_chordas.android.stockhawk.Utils.RecyclerViewItemClickListener;
+import com.sam_chordas.android.stockhawk.Utils.RefreshUpdaterMessage;
+import com.sam_chordas.android.stockhawk.Utils.StockAdded;
+import com.sam_chordas.android.stockhawk.Utils.StockRemover;
+import com.sam_chordas.android.stockhawk.Utils.Utils;
 import com.sam_chordas.android.stockhawk.Service.StockIntentService;
 import com.sam_chordas.android.stockhawk.Service.StockTaskService;
 import com.google.android.gms.gcm.GcmNetworkManager;
@@ -45,12 +45,13 @@ import com.google.android.gms.gcm.PeriodicTask;
 import com.google.android.gms.gcm.Task;
 import com.melnykov.fab.FloatingActionButton;
 import com.sam_chordas.android.stockhawk.TouchHelper.SimpleItemTouchHelperCallback;
+import com.sam_chordas.android.stockhawk.Widget.StockWidget;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-public class MyStocksActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class StocksActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     public ProgressBar mProgress;
     MenuItem miActionProgressItem;
 
@@ -87,7 +88,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
             @Override
             public void onRefresh() {
 
-                mServiceIntent = new Intent(MyStocksActivity.this, StockIntentService.class);
+                mServiceIntent = new Intent(StocksActivity.this, StockIntentService.class);
 
                 mServiceIntent.putExtra("tag", "update");
                 if (isConnected) {
@@ -147,7 +148,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                                             new String[]{input.toString()}, null);
                                     if (c.getCount() != 0) {
                                         Toast toast =
-                                                Toast.makeText(MyStocksActivity.this, R.string.saved,
+                                                Toast.makeText(StocksActivity.this, R.string.saved,
                                                         Toast.LENGTH_LONG);
                                         toast.setGravity(Gravity.CENTER, Gravity.CENTER, 0);
                                         toast.show();
@@ -273,7 +274,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         }
         if (id == R.id.menu_refresh) {
 
-            mServiceIntent = new Intent(MyStocksActivity.this, StockIntentService.class);
+            mServiceIntent = new Intent(StocksActivity.this, StockIntentService.class);
 
             mServiceIntent.putExtra("tag", "update");
             if (isConnected) {

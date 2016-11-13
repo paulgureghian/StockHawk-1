@@ -14,9 +14,9 @@ import com.google.android.gms.gcm.GcmTaskService;
 import com.google.android.gms.gcm.TaskParams;
 import com.sam_chordas.android.stockhawk.Data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.Data.QuoteProvider;
-import com.sam_chordas.android.stockhawk.Rest.RefreshUpdaterMessage;
-import com.sam_chordas.android.stockhawk.Rest.StockAdded;
-import com.sam_chordas.android.stockhawk.Rest.Utils;
+import com.sam_chordas.android.stockhawk.Utils.RefreshUpdaterMessage;
+import com.sam_chordas.android.stockhawk.Utils.StockAdded;
+import com.sam_chordas.android.stockhawk.Utils.Utils;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -78,13 +78,13 @@ public class StockTaskService extends GcmTaskService {
 
                 Log.e("get_count", String.valueOf(initQueryCursor.getCount()));
 
-
                 try {
                     urlStringBuilder.append(
                             URLEncoder.encode("\"YHOO\",\"AAPL\",\"GOOG\",\"MSFT\")", "UTF-8"));
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
+
             } else if (initQueryCursor != null) {
                 DatabaseUtils.dumpCursor(initQueryCursor);
                 initQueryCursor.moveToFirst();
@@ -93,6 +93,7 @@ public class StockTaskService extends GcmTaskService {
                             initQueryCursor.getString(initQueryCursor.getColumnIndex(QuoteColumns.SYMBOL)) + "\",");
                     initQueryCursor.moveToNext();
                 }
+
                 mStoredSymbols.replace(mStoredSymbols.length() - 1, mStoredSymbols.length(), ")");
                 try {
                     urlStringBuilder.append(URLEncoder.encode(mStoredSymbols.toString(), "UTF-8"));

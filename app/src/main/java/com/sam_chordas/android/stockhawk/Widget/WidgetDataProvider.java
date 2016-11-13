@@ -1,4 +1,4 @@
-package com.sam_chordas.android.stockhawk.Data;
+package com.sam_chordas.android.stockhawk.Widget;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +7,10 @@ import android.database.DatabaseUtils;
 import android.graphics.Color;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
+
+import com.sam_chordas.android.stockhawk.Data.QuoteColumns;
+import com.sam_chordas.android.stockhawk.Data.QuoteProvider;
+import com.sam_chordas.android.stockhawk.POJO.Stock;
 import com.sam_chordas.android.stockhawk.R;
 import java.util.ArrayList;
 import java.util.List;

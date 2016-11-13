@@ -1,4 +1,4 @@
-package com.sam_chordas.android.stockhawk.Data;
+package com.sam_chordas.android.stockhawk.POJO;
 
 public class Stock {
     String Symbol;

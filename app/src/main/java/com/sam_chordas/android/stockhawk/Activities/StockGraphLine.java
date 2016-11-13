@@ -1,4 +1,4 @@
-package com.sam_chordas.android.stockhawk.UI;
+package com.sam_chordas.android.stockhawk.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,9 +22,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.Data.QuoteColumns;
-import com.sam_chordas.android.stockhawk.Data.Stock;
-import com.sam_chordas.android.stockhawk.Service.StockDataEndpoint;
-import com.sam_chordas.android.stockhawk.Service.StocksDeserializer;
+import com.sam_chordas.android.stockhawk.POJO.Stock;
+import com.sam_chordas.android.stockhawk.Endpoint.StockDataEndpoint;
+import com.sam_chordas.android.stockhawk.Deserializer.StocksDeserializer;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;

@@ -1,4 +1,4 @@
-package com.sam_chordas.android.stockhawk.Rest;
+package com.sam_chordas.android.stockhawk.Utils;
 
 
 public class IOException {

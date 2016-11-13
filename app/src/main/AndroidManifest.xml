@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".UI.MyStocksActivity"
+            android:name=".Activities.StocksActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,15 +44,15 @@
             android:exported="true" />
 
         <activity
-            android:name=".UI.StockGraphLine"
+            android:name=".Activities.StockGraphLine"
             android:label="@string/title_activity_setting">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.sam_chordas.android.stockhawk.UI.MyStocksActivity" />
+                android:value="com.sam_chordas.android.stockhawk.Activities.StocksActivity" />
         </activity>
 
         <receiver
-            android:name=".UI.StockWidget"
+            android:name=".Widget.StockWidget"
             android:label="@string/appwidget_text">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -64,10 +64,10 @@
         </receiver>
 
         <service
-            android:name=".Service.WidgetService"
+            android:name=".Widget.WidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
         <service
-            android:name=".Service.StockWidgetIntentService"
+            android:name=".Widget.StockWidgetIntentService"
             android:exported="true">
 
     </service>

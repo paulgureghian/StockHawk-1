@@ -1,6 +1,6 @@
-package com.sam_chordas.android.stockhawk.Service;
+package com.sam_chordas.android.stockhawk.Endpoint;
 
-import com.sam_chordas.android.stockhawk.Data.Stock;
+import com.sam_chordas.android.stockhawk.POJO.Stock;
 
 import java.util.List;
 

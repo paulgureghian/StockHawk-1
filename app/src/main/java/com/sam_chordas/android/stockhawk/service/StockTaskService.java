@@ -74,9 +74,8 @@ public class StockTaskService extends GcmTaskService {
             initQueryCursor = mContext.getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,
                     new String[]{"Distinct " + QuoteColumns.SYMBOL}, null,
                     null, null);
-            if (initQueryCursor != null && initQueryCursor.getCount() > 0) {
+            if (initQueryCursor.getCount() == 0 || initQueryCursor == null) {
 
-                Log.e("get_count", String.valueOf(initQueryCursor.getCount()));
 
                 try {
                     urlStringBuilder.append(
@@ -92,6 +91,8 @@ public class StockTaskService extends GcmTaskService {
                     mStoredSymbols.append("\"" +
                             initQueryCursor.getString(initQueryCursor.getColumnIndex(QuoteColumns.SYMBOL)) + "\",");
                     initQueryCursor.moveToNext();
+
+                    Log.e("get_count", String.valueOf(initQueryCursor.getCount()));
                 }
 
                 mStoredSymbols.replace(mStoredSymbols.length() - 1, mStoredSymbols.length(), ")");

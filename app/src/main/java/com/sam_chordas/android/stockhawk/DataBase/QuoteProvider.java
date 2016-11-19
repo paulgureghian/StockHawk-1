@@ -1,4 +1,4 @@
-package com.sam_chordas.android.stockhawk.Data;
+package com.sam_chordas.android.stockhawk.DataBase;
 
 import android.net.Uri;
 import net.simonvt.schematic.annotation.ContentProvider;

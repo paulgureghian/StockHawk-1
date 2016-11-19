@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 import com.sam_chordas.android.stockhawk.EventBus.StockRemover;
 import com.sam_chordas.android.stockhawk.R;
-import com.sam_chordas.android.stockhawk.Data.QuoteColumns;
-import com.sam_chordas.android.stockhawk.Data.QuoteProvider;
+import com.sam_chordas.android.stockhawk.DataBase.QuoteColumns;
+import com.sam_chordas.android.stockhawk.DataBase.QuoteProvider;
 import com.sam_chordas.android.stockhawk.TouchHelper.ItemTouchHelperAdapter;
 import com.sam_chordas.android.stockhawk.TouchHelper.ItemTouchHelperViewHolder;
 import com.sam_chordas.android.stockhawk.Utils.Utils;

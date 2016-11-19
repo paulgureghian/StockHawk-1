@@ -8,8 +8,8 @@ import android.graphics.Color;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import com.sam_chordas.android.stockhawk.Data.QuoteColumns;
-import com.sam_chordas.android.stockhawk.Data.QuoteProvider;
+import com.sam_chordas.android.stockhawk.DataBase.QuoteColumns;
+import com.sam_chordas.android.stockhawk.DataBase.QuoteProvider;
 import com.sam_chordas.android.stockhawk.POJO.Stock;
 import com.sam_chordas.android.stockhawk.R;
 import java.util.ArrayList;

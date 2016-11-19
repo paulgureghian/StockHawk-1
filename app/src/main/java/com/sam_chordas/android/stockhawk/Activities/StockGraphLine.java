@@ -21,7 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.sam_chordas.android.stockhawk.R;
-import com.sam_chordas.android.stockhawk.Data.QuoteColumns;
+import com.sam_chordas.android.stockhawk.DataBase.QuoteColumns;
 import com.sam_chordas.android.stockhawk.POJO.Stock;
 import com.sam_chordas.android.stockhawk.Endpoint.StockDataEndpoint;
 import com.sam_chordas.android.stockhawk.Deserializer.StocksDeserializer;

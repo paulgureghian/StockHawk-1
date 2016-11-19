@@ -28,8 +28,8 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.sam_chordas.android.stockhawk.R;
-import com.sam_chordas.android.stockhawk.Data.QuoteColumns;
-import com.sam_chordas.android.stockhawk.Data.QuoteProvider;
+import com.sam_chordas.android.stockhawk.DataBase.QuoteColumns;
+import com.sam_chordas.android.stockhawk.DataBase.QuoteProvider;
 import com.sam_chordas.android.stockhawk.EventBus.IOException;
 import com.sam_chordas.android.stockhawk.EventBus.MessageEvent;
 import com.sam_chordas.android.stockhawk.Adapters.QuoteCursorAdapter;

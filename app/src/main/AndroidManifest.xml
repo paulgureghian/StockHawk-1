@@ -39,8 +39,8 @@
         </service>
 
         <provider
-            android:name=".Data.generated.QuoteProvider"
-            android:authorities="com.sam_chordas.android.stockhawk.Data.QuoteProvider"
+            android:name=".DataBase.generated.QuoteProvider"
+            android:authorities="com.sam_chordas.android.stockhawk.DataBase.QuoteProvider"
             android:exported="true" />
 
         <activity

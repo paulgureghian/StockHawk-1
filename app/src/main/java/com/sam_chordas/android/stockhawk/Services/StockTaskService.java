@@ -1,4 +1,4 @@
-package com.sam_chordas.android.stockhawk.Service;
+package com.sam_chordas.android.stockhawk.Services;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -14,8 +14,8 @@ import com.google.android.gms.gcm.GcmTaskService;
 import com.google.android.gms.gcm.TaskParams;
 import com.sam_chordas.android.stockhawk.Data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.Data.QuoteProvider;
-import com.sam_chordas.android.stockhawk.Utils.RefreshUpdaterMessage;
-import com.sam_chordas.android.stockhawk.Utils.StockAdded;
+import com.sam_chordas.android.stockhawk.EventBus.RefreshUpdaterMessage;
+import com.sam_chordas.android.stockhawk.EventBus.StockAdded;
 import com.sam_chordas.android.stockhawk.Utils.Utils;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -75,7 +75,6 @@ public class StockTaskService extends GcmTaskService {
                     new String[]{"Distinct " + QuoteColumns.SYMBOL}, null,
                     null, null);
             if (initQueryCursor.getCount() == 0 || initQueryCursor == null) {
-
 
                 try {
                     urlStringBuilder.append(

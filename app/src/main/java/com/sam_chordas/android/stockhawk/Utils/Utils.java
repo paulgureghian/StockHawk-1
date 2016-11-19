@@ -4,6 +4,8 @@ import android.content.ContentProviderOperation;
 import android.util.Log;
 import com.sam_chordas.android.stockhawk.Data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.Data.QuoteProvider;
+import com.sam_chordas.android.stockhawk.EventBus.MessageEvent;
+
 import java.util.ArrayList;
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;

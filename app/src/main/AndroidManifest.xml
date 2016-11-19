@@ -30,7 +30,7 @@
         </activity>
 
         <service
-            android:name=".Service.StockTaskService"
+            android:name=".Services.StockTaskService"
             android:exported="true"
             android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE">
             <intent-filter>
@@ -73,7 +73,7 @@
     </service>
 
         <service
-            android:name=".Service.StockIntentService"
+            android:name=".Services.StockIntentService"
             android:exported="true">
 
     </service>

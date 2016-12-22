@@ -10,7 +10,6 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 import com.sam_chordas.android.stockhawk.R;
-import com.sam_chordas.android.stockhawk.Widget.WidgetService;
 
 public class StockWidget extends AppWidgetProvider {
 

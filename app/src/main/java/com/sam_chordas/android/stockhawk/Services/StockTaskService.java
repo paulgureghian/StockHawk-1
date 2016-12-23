@@ -84,7 +84,7 @@ public class StockTaskService extends GcmTaskService {
                     e.printStackTrace();
                 }
 
-            } else {
+            } else if (initQueryCursor.getCount() > 0) {
                 DatabaseUtils.dumpCursor(initQueryCursor);
                 initQueryCursor.moveToFirst();
                 for (int i = 0; i < initQueryCursor.getCount(); i++) {

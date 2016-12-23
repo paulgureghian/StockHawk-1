@@ -30,12 +30,13 @@ import org.greenrobot.eventbus.EventBus;
 
 public class StockTaskService extends GcmTaskService {
 
-    private String LOG_TAG = StockTaskService.class.getSimpleName();
-    private OkHttpClient client = new OkHttpClient();
     private Context mContext;
-    private StringBuilder mStoredSymbols = new StringBuilder();
     private boolean isUpdate;
     public String getResponse;
+
+    private OkHttpClient client = new OkHttpClient();
+    private StringBuilder mStoredSymbols = new StringBuilder();
+    private String LOG_TAG = StockTaskService.class.getSimpleName();
 
     public StockTaskService() {
 
@@ -74,7 +75,7 @@ public class StockTaskService extends GcmTaskService {
             initQueryCursor = mContext.getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,
                     new String[]{"Distinct " + QuoteColumns.SYMBOL}, null,
                     null, null);
-            if (initQueryCursor.getCount() == 0 || initQueryCursor == null) {
+            if (initQueryCursor == null) {
 
                 try {
                     urlStringBuilder.append(
@@ -83,12 +84,11 @@ public class StockTaskService extends GcmTaskService {
                     e.printStackTrace();
                 }
 
-            } else if (initQueryCursor != null) {
+            } else {
                 DatabaseUtils.dumpCursor(initQueryCursor);
                 initQueryCursor.moveToFirst();
                 for (int i = 0; i < initQueryCursor.getCount(); i++) {
-                    mStoredSymbols.append("\"" +
-                            initQueryCursor.getString(initQueryCursor.getColumnIndex(QuoteColumns.SYMBOL)) + "\",");
+                    mStoredSymbols.append("\"").append(initQueryCursor.getString(initQueryCursor.getColumnIndex(QuoteColumns.SYMBOL))).append("\",");
                     initQueryCursor.moveToNext();
 
                     Log.e("get_count", String.valueOf(initQueryCursor.getCount()));
@@ -118,36 +118,34 @@ public class StockTaskService extends GcmTaskService {
 
         int result = GcmNetworkManager.RESULT_FAILURE;
 
-        if (urlStringBuilder != null) {
-            urlString = urlStringBuilder.toString();
+        urlString = urlStringBuilder.toString();
+        try {
+            getResponse = fetchData(urlString);
+            result = GcmNetworkManager.RESULT_SUCCESS;
             try {
-                getResponse = fetchData(urlString);
-                result = GcmNetworkManager.RESULT_SUCCESS;
-                try {
-                    ContentValues contentValues = new ContentValues();
+                ContentValues contentValues = new ContentValues();
 
-                    if (isUpdate) {
-                        contentValues.put(QuoteColumns.ISCURRENT, 0);
-                        mContext.getContentResolver().update(QuoteProvider.Quotes.CONTENT_URI, contentValues,
-                                null, null);
-                    } else {
+                if (isUpdate) {
+                    contentValues.put(QuoteColumns.ISCURRENT, 0);
+                    mContext.getContentResolver().update(QuoteProvider.Quotes.CONTENT_URI, contentValues,
+                            null, null);
+                } else {
 
-                        ArrayList<ContentProvider> response = Utils.quoteJsonToContentVals(getResponse);
-                        if ((!response.isEmpty()) && (params.getTag().equals("add"))) {
+                    ArrayList<ContentProvider> response = Utils.quoteJsonToContentVals(getResponse);
+                    if ((!response.isEmpty()) && (params.getTag().equals("add"))) {
 
-                            EventBus.getDefault().post(new StockAdded());
-                        }
+                        EventBus.getDefault().post(new StockAdded());
                     }
-                    mContext.getContentResolver().applyBatch(QuoteProvider.AUTHORITY,
-                            Utils.quoteJsonToContentVals(getResponse));
-                } catch (RemoteException | OperationApplicationException e) {
-                    Log.e(LOG_TAG, "Error applying batch insert", e);
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-                EventBus.getDefault().post(new IOException());
-                Log.d(LOG_TAG, "HTTP Error: " + e.getMessage());
+                mContext.getContentResolver().applyBatch(QuoteProvider.AUTHORITY,
+                        Utils.quoteJsonToContentVals(getResponse));
+            } catch (RemoteException | OperationApplicationException e) {
+                Log.e(LOG_TAG, "Error applying batch insert", e);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+            EventBus.getDefault().post(new IOException());
+            Log.d(LOG_TAG, "HTTP Error: " + e.getMessage());
         }
 
         if (params.getTag().equals("update")) {

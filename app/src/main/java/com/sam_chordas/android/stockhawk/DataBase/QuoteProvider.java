@@ -8,7 +8,7 @@ import net.simonvt.schematic.annotation.TableEndpoint;
 
 @ContentProvider(authority = QuoteProvider.AUTHORITY, database = QuoteDatabase.class)
 public class QuoteProvider {
-  public static final String AUTHORITY = "com.sam_chordas.android.stockhawk.Data.QuoteProvider";
+  public static final String AUTHORITY = "com.sam_chordas.android.stockhawk.DataBase.QuoteProvider";
 
   static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
 

@@ -9,11 +9,10 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
+
 import com.sam_chordas.android.stockhawk.R;
 
 public class StockWidget extends AppWidgetProvider {
-
-    private static final String ACTION_CLICK = "ACTION_CLICK";
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
@@ -27,10 +26,11 @@ public class StockWidget extends AppWidgetProvider {
         }
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
+
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
-        for (int i = 0; i < appWidgetIds.length; ++i) {
+        for (int appWidgetId1 : appWidgetIds) {
 
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                     R.layout.stock_widget);
@@ -41,26 +41,30 @@ public class StockWidget extends AppWidgetProvider {
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             remoteViews.setOnClickPendingIntent(R.id.widget_layout_main, pendingIntent);
-            appWidgetManager.updateAppWidget(appWidgetIds[i], remoteViews);
+            appWidgetManager.updateAppWidget(appWidgetId1, remoteViews);
 
             for (int appWidgetId : appWidgetIds) {
                 updateAppWidget(context, appWidgetManager, appWidgetId);
                 appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_list);
             }
-        super.onUpdate(context, appWidgetManager, appWidgetIds);
+            super.onUpdate(context, appWidgetManager, appWidgetIds);
         }
     }
+
     @Override
     public void onEnabled(Context context) {
     }
+
     @Override
     public void onDisabled(Context context) {
     }
+
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     private static void setRemoteAdapter(Context context, @NonNull final RemoteViews views) {
         views.setRemoteAdapter(R.id.widget_list,
                 new Intent(context, WidgetService.class));
     }
+
     @SuppressWarnings("deprecation")
     private static void setRemoteAdapterV11(Context context, @NonNull final RemoteViews views) {
         views.setRemoteAdapter(0, R.id.widget_list,

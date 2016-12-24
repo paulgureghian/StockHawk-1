@@ -38,10 +38,6 @@ public class StockTaskService extends GcmTaskService {
     private StringBuilder mStoredSymbols = new StringBuilder();
     private String LOG_TAG = StockTaskService.class.getSimpleName();
 
-    public StockTaskService() {
-
-    }
-
     public StockTaskService(Context context) {
         mContext = context;
     }
@@ -57,7 +53,7 @@ public class StockTaskService extends GcmTaskService {
 
     @Override
     public int onRunTask(TaskParams params) {
-        Cursor initQueryCursor;
+        Cursor cursor;
         if (mContext == null) {
             mContext = this;
         }
@@ -72,34 +68,45 @@ public class StockTaskService extends GcmTaskService {
         }
         if (params.getTag().equals("init") || params.getTag().equals("periodic")) {
             isUpdate = true;
-            initQueryCursor = mContext.getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,
+            cursor = mContext.getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,
                     new String[]{"Distinct " + QuoteColumns.SYMBOL}, null,
                     null, null);
-            if (initQueryCursor == null) {
 
-                try {
-                    urlStringBuilder.append(
-                            URLEncoder.encode("\"YHOO\",\"AAPL\",\"GOOG\",\"MSFT\")", "UTF-8"));
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
+
+            if (cursor != null) {
+                if (cursor.getCount() > 0) {
+
+                    DatabaseUtils.dumpCursor(cursor);
+                    cursor.moveToFirst();
+                    for (int i = 0; i < cursor.getCount(); i++) {
+                        mStoredSymbols.append("\"").append(cursor.getString(cursor.getColumnIndex(QuoteColumns.SYMBOL))).append("\",");
+                        cursor.moveToNext();
+
+                        Log.e("get_count", String.valueOf(cursor.getCount()));
+                    }
+
+
+                    mStoredSymbols.replace(mStoredSymbols.length() - 1, mStoredSymbols.length(), ")");
+                    try {
+                        urlStringBuilder.append(URLEncoder.encode(mStoredSymbols.toString(), "UTF-8"));
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+
+
+                } else {
+
+                    try {
+                        urlStringBuilder.append(
+                                URLEncoder.encode("\"YHOO\",\"AAPL\",\"GOOG\",\"MSFT\")", "UTF-8"));
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+
+
                 }
 
-            } else if (initQueryCursor.getCount() > 0) {
-                DatabaseUtils.dumpCursor(initQueryCursor);
-                initQueryCursor.moveToFirst();
-                for (int i = 0; i < initQueryCursor.getCount(); i++) {
-                    mStoredSymbols.append("\"").append(initQueryCursor.getString(initQueryCursor.getColumnIndex(QuoteColumns.SYMBOL))).append("\",");
-                    initQueryCursor.moveToNext();
 
-                    Log.e("get_count", String.valueOf(initQueryCursor.getCount()));
-                }
-
-                mStoredSymbols.replace(mStoredSymbols.length() - 1, mStoredSymbols.length(), ")");
-                try {
-                    urlStringBuilder.append(URLEncoder.encode(mStoredSymbols.toString(), "UTF-8"));
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
             }
         } else if (params.getTag().equals("add")) {
             isUpdate = false;
@@ -154,4 +161,5 @@ public class StockTaskService extends GcmTaskService {
         }
         return result;
     }
+
 }

@@ -13,7 +13,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,7 +22,6 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -52,18 +50,13 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 public class StocksActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
-    public ProgressBar mProgress;
-    MenuItem miActionProgressItem;
 
-    private CharSequence mTitle;
-    private Intent mServiceIntent;
-    private ItemTouchHelper mItemTouchHelper;
-    private static final int CURSOR_LOADER_ID = 0;
-    private QuoteCursorAdapter mCursorAdapter;
-    private Context mContext;
-    private Cursor mCursor;
     boolean isConnected;
-    public StockTaskService stockTaskService = new StockTaskService();
+    private Cursor mCursor;
+    private Context mContext;
+    private Intent mServiceIntent;
+    private QuoteCursorAdapter mCursorAdapter;
+    private static final int CURSOR_LOADER_ID = 0;
     public SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
@@ -73,6 +66,7 @@ public class StocksActivity extends AppCompatActivity implements LoaderManager.L
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+
         mContext = this;
         ConnectivityManager cm =
                 (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -94,7 +88,7 @@ public class StocksActivity extends AppCompatActivity implements LoaderManager.L
                 if (isConnected) {
                     startService(mServiceIntent);
                 } else {
-                    networkToast();
+                    Toast.makeText(mContext, getString(R.string.network_toast), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -106,7 +100,7 @@ public class StocksActivity extends AppCompatActivity implements LoaderManager.L
             if (isConnected) {
                 startService(mServiceIntent);
             } else {
-                networkToast();
+                Toast.makeText(mContext, getString(R.string.network_toast), Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -143,35 +137,36 @@ public class StocksActivity extends AppCompatActivity implements LoaderManager.L
                                 @Override
                                 public void onInput(MaterialDialog dialog, CharSequence input) {
 
-                                    Cursor c = getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,
+                                    Cursor cursor = getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,
                                             new String[]{QuoteColumns.SYMBOL}, QuoteColumns.SYMBOL + "= ?",
                                             new String[]{input.toString()}, null);
-                                    if (c.getCount() != 0) {
+                                    if (cursor.getCount() != 0) {
                                         Toast toast =
                                                 Toast.makeText(StocksActivity.this, R.string.saved,
                                                         Toast.LENGTH_LONG);
                                         toast.setGravity(Gravity.CENTER, Gravity.CENTER, 0);
                                         toast.show();
-                                        return;
                                     } else {
 
                                         mServiceIntent.putExtra("tag", "add");
                                         mServiceIntent.putExtra(QuoteColumns.SYMBOL, input.toString());
                                         startService(mServiceIntent);
+                                        cursor.close();
                                     }
                                 }
                             })
                             .show();
                 } else {
-                    networkToast();
+                    Toast.makeText(mContext, getString(R.string.network_toast), Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mCursorAdapter);
-        mItemTouchHelper = new ItemTouchHelper(callback);
+        ItemTouchHelper mItemTouchHelper = new ItemTouchHelper(callback);
         mItemTouchHelper.attachToRecyclerView(recyclerView);
 
-        mTitle = getTitle();
+        CharSequence mTitle = getTitle();
         if (isConnected) {
             long period = 3600L;
             long flex = 10L;
@@ -198,7 +193,7 @@ public class StocksActivity extends AppCompatActivity implements LoaderManager.L
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void IOException(IOException event) {
-        Toast.makeText(getApplicationContext(), "HTTP Error", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), mContext.getResources().getString(R.string.no_connection_made), Toast.LENGTH_SHORT).show();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -241,21 +236,11 @@ public class StocksActivity extends AppCompatActivity implements LoaderManager.L
         getLoaderManager().restartLoader(CURSOR_LOADER_ID, null, this);
     }
 
-    public void networkToast() {
-        Toast.makeText(mContext, getString(R.string.network_toast), Toast.LENGTH_SHORT).show();
-    }
-
-    public void restoreActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         getMenuInflater().inflate(R.menu.my_stocks, menu);
-        restoreActionBar();
+
         return true;
     }
 
@@ -282,14 +267,10 @@ public class StocksActivity extends AppCompatActivity implements LoaderManager.L
                 mSwipeRefreshLayout.setRefreshing(true);
 
             } else {
-                networkToast();
+                Toast.makeText(mContext, getString(R.string.network_toast), Toast.LENGTH_SHORT).show();
             }
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void updateNonExistentStock() {
-        //  if (SEARCH_SERVICE.isEmpty() == 0) {
     }
 
     @Override

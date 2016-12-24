@@ -24,9 +24,9 @@ import org.greenrobot.eventbus.EventBus;
 public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAdapter.ViewHolder>
         implements ItemTouchHelperAdapter {
 
-    private static Context mContext;
-    private static Typeface robotoLight;
+    private Context mContext;
     private boolean isPercent;
+    private static Typeface robotoLight;
 
     public QuoteCursorAdapter(Context context, Cursor cursor) {
         super(context, cursor);
@@ -38,8 +38,7 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
         robotoLight = Typeface.createFromAsset(mContext.getAssets(), "fonts/Roboto-Light.ttf");
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item_quote, parent, false);
-        ViewHolder vh = new ViewHolder(itemView);
-        return vh;
+        return new ViewHolder(itemView);
     }
 
     @Override
@@ -89,7 +88,7 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
         return super.getItemCount();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder
+    public class ViewHolder extends RecyclerView.ViewHolder
             implements ItemTouchHelperViewHolder, View.OnClickListener {
         public final TextView symbol;
         public final TextView bidPrice;

@@ -25,6 +25,5 @@ public class StocksDeserializer implements JsonDeserializer<List<Stock>> {
                         .get("results")
                         .getAsJsonObject()
                         .get("quote").getAsJsonArray(), listType);
-
     }
 }

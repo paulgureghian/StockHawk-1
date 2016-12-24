@@ -7,11 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import retrofit2.Response;
 import retrofit2.Callback;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -25,6 +27,7 @@ import com.sam_chordas.android.stockhawk.DataBase.QuoteColumns;
 import com.sam_chordas.android.stockhawk.POJO.Stock;
 import com.sam_chordas.android.stockhawk.Endpoint.StockDataEndpoint;
 import com.sam_chordas.android.stockhawk.Deserializer.StocksDeserializer;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,10 +41,10 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
     String startDate;
 
     Context context;
-    String mStockSymbol;
     List<Stock> items;
+    String mStockSymbol;
     private LineChart lineChart;
-    Type listType = new TypeToken<List<Stock>>() {}.getType();
+
     TextView symbol;
     TextView date;
     TextView open;
@@ -50,6 +53,8 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
     TextView close;
     TextView volume;
     TextView adj_close;
+    Type listType = new TypeToken<List<Stock>>() {
+    }.getType();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,13 +89,14 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
                         listType, new StocksDeserializer()).create()))
                 .build();
         StockDataEndpoint stockDataEndpoint = retrofit.create(StockDataEndpoint.class);
-        String query = "select * from yahoo.finance.historicaldata where symbol= '" + mStockSymbol +"' and startDate = '" + startDate + "' and endDate ='" + endDate + "'";
+        String query = "select * from yahoo.finance.historicaldata where symbol= '" + mStockSymbol + "' and startDate = '" + startDate + "' and endDate ='" + endDate + "'";
         Call<List<Stock>> call = stockDataEndpoint.getData(query);
         call.enqueue(this);
 
         Log.e("start date", startDate);
         Log.e("end date", endDate);
     }
+
     @Override
     public void onResponse(Call<List<Stock>> call, Response<List<Stock>> response) {
 
@@ -107,16 +113,18 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
         }
         if (code == 200) {
 
-             Toast.makeText(this, "Connection made", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Connection made", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, context.getResources().getString(R.string.no_connection_made) + String.valueOf(code),
                     Toast.LENGTH_LONG).show();
         }
     }
+
     @Override
     public void onFailure(Call<List<Stock>> call, Throwable t) {
-        Toast.makeText(this, context.getResources().getString(R.string.nope) , Toast.LENGTH_LONG).show();
+        Toast.makeText(this, context.getResources().getString(R.string.nope), Toast.LENGTH_LONG).show();
     }
+
     private void displayChart() {
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setTextSize(11f);
@@ -139,7 +147,6 @@ public class StockGraphLine extends AppCompatActivity implements Callback<List<S
         lineChart.getLegend().setTextSize(12f);
         lineChart.setPinchZoom(false);
         lineChart.invalidate();
-        //lineChart.animateY();
     }
 }
 

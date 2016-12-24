@@ -1,6 +1,7 @@
 package com.sam_chordas.android.stockhawk.POJO;
 
 public class Stock {
+
     String Symbol;
     String Date;
     String Open;

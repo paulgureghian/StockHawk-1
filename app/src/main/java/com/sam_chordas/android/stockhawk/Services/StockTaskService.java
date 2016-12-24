@@ -72,7 +72,6 @@ public class StockTaskService extends GcmTaskService {
                     new String[]{"Distinct " + QuoteColumns.SYMBOL}, null,
                     null, null);
 
-
             if (cursor != null) {
                 if (cursor.getCount() > 0) {
 
@@ -85,14 +84,12 @@ public class StockTaskService extends GcmTaskService {
                         Log.e("get_count", String.valueOf(cursor.getCount()));
                     }
 
-
                     mStoredSymbols.replace(mStoredSymbols.length() - 1, mStoredSymbols.length(), ")");
                     try {
                         urlStringBuilder.append(URLEncoder.encode(mStoredSymbols.toString(), "UTF-8"));
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
-
 
                 } else {
 
@@ -102,11 +99,7 @@ public class StockTaskService extends GcmTaskService {
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
-
-
                 }
-
-
             }
         } else if (params.getTag().equals("add")) {
             isUpdate = false;
@@ -161,5 +154,4 @@ public class StockTaskService extends GcmTaskService {
         }
         return result;
     }
-
 }

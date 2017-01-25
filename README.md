@@ -1,5 +1,5 @@
 # StockHawk-1
-An Android app for monitoring & charting stock prices online.   
+   
 
-
+img src="mainscreen.png" width="200" height="200">
 

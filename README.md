@@ -14,4 +14,4 @@ Libraries used:
 # Retrofit 2
 # MP Android Chart
 
-The app allows the user to add new stocks, remove stocks, and toggle between displaying the 
+The app allows the user to add new stocks, remove stocks, toggle between displaying the change in stock value between dollars and percentage. a widget is also included. 
